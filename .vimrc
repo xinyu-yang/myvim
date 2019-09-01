@@ -82,10 +82,10 @@ set backspace=indent,eol,start
 
 "Set color
 set background=dark
-colorscheme default
+"colorscheme default
 "colorscheme solarized
 "colorscheme molokai
-"colorscheme phd
+colorscheme phd
 
 "Always show status bar
 set laststatus=2
@@ -239,4 +239,4 @@ let g:ycm_collect_identifiers_from_tags_files=1
 "set tags+=/data/misc/software/misc./vim/stdcpp.tags
 set tags+=/usr/include/c++/5/stdcpp.tags
 inoremap <leader>; <C-x><C-o>
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '/home/yang/.vim/.ycm_extra_conf.py'
