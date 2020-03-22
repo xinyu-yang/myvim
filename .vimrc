@@ -87,7 +87,8 @@ set background=dark
 "colorscheme default
 "colorscheme solarized
 "colorscheme molokai
-colorscheme phd
+"colorscheme phd
+colorscheme gruvbox
 
 "Always show status bar
 set laststatus=2
