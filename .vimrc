@@ -45,6 +45,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/phd'
+Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -69,6 +70,7 @@ Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'lilydjwg/fcitx.vim'
+Plugin 'nfvs/vim-perforce'
 " 插件列表结束
 call vundle#end()
 "Make setting with immediate effect
@@ -82,9 +84,10 @@ set backspace=indent,eol,start
 
 "Set color
 set background=dark
-colorscheme default
+"colorscheme default
 "colorscheme solarized
 "colorscheme molokai
+colorscheme gruvbox
 "colorscheme phd
 
 "Always show status bar
