@@ -1,10 +1,7 @@
 "Define shortcut key, namely <Leader>
 let mapleader=";"
 
-"Define shortcut of line begin/end
-"nmap LB 0
-"nmap LE $
-
+command W w !sudo tee "%" > /dev/null
 "Define shortcut key copy selected text to system clipboard
 vnoremap <Leader>y "+y
 "Define shortcut key copy text of clipboard to vim
@@ -243,10 +240,8 @@ let g:ycm_complete_in_comments=1
 let g:ycm_confirm_extra_conf=0
 " 开启 YCM 标签补全引擎
 let g:ycm_collect_identifiers_from_tags_files=1
-" 引入 C++ 标准库tags
-"set tags+=/data/misc/software/misc./vim/stdcpp.tags
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <Leader>; <C-x><C-o>
+inoremap <Leader>l <C-x><C-o>
 " 补全内容不以分割子窗口形式出现，只显示补全列表
 set completeopt-=preview
 " 从第一个键入字符就开始罗列匹配项
