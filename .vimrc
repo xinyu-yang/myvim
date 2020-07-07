@@ -30,7 +30,7 @@ nmap <Leader>M %
 nmap <Leader>u :u<CR>
 "Spell checking
 set spell
-inoremap <Leader>cs <C-X>s
+"inoremap <Leader>cs <C-X>s
 
 " vundle 环境设置
 filetype off
@@ -54,19 +54,20 @@ Plugin 'majutsushi/tagbar'
 "Plugin 'vim-scripts/DfrankUtil'
 "Plugin 'vim-scripts/vimprj'
 "Plugin 'vim-scripts/indexer.tar.gz'
-"Plugin 'dyng/ctrlsf.vim'
-Plugin 'terryma/vim-multiple-cursors'
+" ctrlsf: install ripgrep first
+Plugin 'dyng/ctrlsf.vim'
+"Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'SirVer/ultisnips'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'derekwyatt/vim-protodef'
 Plugin 'scrooloose/nerdtree'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'suan/vim-instant-markdown'
+"Plugin 'suan/vim-instant-markdown'
 "Plugin 'lilydjwg/fcitx.vim'
 Plugin 'nfvs/vim-perforce'
 " 插件列表结束
@@ -136,6 +137,30 @@ set nofoldenable
 "switch between *.cpp and *.h
 nmap <silent> <Leader>sw :FSHere<cr>
 
+" CtrlSF shortcut
+nmap     <Leader>ff <Plug>CtrlSFPrompt
+vmap     <Leader>ff <Plug>CtrlSFVwordPath
+vmap     <Leader>fF <Plug>CtrlSFVwordExec
+nmap     <Leader>fn <Plug>CtrlSFCwordPath
+nmap     <Leader>fp <Plug>CtrlSFPwordPath
+nnoremap <Leader>fo :CtrlSFOpen<CR>
+nnoremap <Leader>ft :CtrlSFToggle<CR>
+inoremap <Leader>ft <Esc>:CtrlSFToggle<CR>
+
+"NERDTree plugin shortcut
+"Open project
+nmap <Leader>fl :NERDTreeToggle<CR>
+"Set subwindow width
+let NERDTreeWinSize=30
+"Set subwindow position
+let NERDTreeWinPos="right"
+"Set hidden file
+let NERDTreeShowHidden=1
+"Hidden verbose help information in subwindow
+let NERDTreeMinimalUI=1
+"Delete buffer automatically when file deleted
+let NERDTreeAutoDeleteBuffer=1
+
 set showcmd
 set wildmenu
 let g:SignatureMap = {
@@ -167,7 +192,7 @@ let tagbar_left=1
 "Set shortcut key to display/hide tag list child window.
 nnoremap <Leader>ilt :TagbarToggle<CR>
 "Set width of tag child window
-let tagbar_width=32
+let tagbar_width=30
 "Do not display redundant help information in tagbar child window.
 let g:tagbar_compact=1
 
@@ -212,10 +237,12 @@ let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
 "Omnicomplete
-"let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
+let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
 "set tags+=/usr/include/c++/5/stdcpp.tags
 "set tags+=~/.vim/tags/cpp54_tags
 set tags+=~/.vim/tags/include_tags
+"set tags+=/mnt/e/mb_code/metls/ctag_metls
+set tags+=/mnt/e/mb_code/matls-implementation/matls-openssl-src/ctag_matls
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
@@ -241,15 +268,29 @@ let g:ycm_confirm_extra_conf=0
 " 开启 YCM 标签补全引擎
 let g:ycm_collect_identifiers_from_tags_files=1
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <Leader>l <C-x><C-o>
+inoremap <Leader>yo <C-x><C-o>
+" set short for force semantic completion
+inoremap <Leader>ys <C-Space>
+" turn off YCM
+nnoremap <Leader>yf :let g:ycm_auto_trigger=0<CR>                
+" turn on YCM
+nnoremap <Leader>yn :let g:ycm_auto_trigger=1<CR>
 " 补全内容不以分割子窗口形式出现，只显示补全列表
 set completeopt-=preview
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
+let g:ycm_cache_omnifunc=1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " 开启 YCM 标签引擎
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+" CR as select
+let g:ycm_key_list_stop_completion = ['<CR>']
+" 跳转到定义处, 分屏打开
+let g:ycm_goto_buffer_command = 'horizontal-split'
+let g:ycm_register_as_syntastic_checker = 0
+" nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>

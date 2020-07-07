@@ -40,3 +40,16 @@ git submodule init ./bundle/Vundle.vim
 git submodule update ./bundle/Vundle.vim
 :PluginInstall
 ```
+## There are some operates should be performed before work.
+### YouCompleteMe compiled require
+[YCM](https://github.com/ycm-core/YouCompleteMe) may not work before we compile it mannually.
+The basic instruction is:
+```
+cd ./bundle/YouCompleteMe/
+./install.py --clanged-completer
+```
+The details can ne obtained in official site linked above.
+### ctrlSF plugin dependency
+[ctrlSF](https://github.com/dyng/ctrlsf.vim) is plugin which provide handy and powerful search function in big project. Its search ability is powered by tools like `ack`,`ag`,`pt` and `rg`, which are similar to famous `grep`, but faster and more powerful than it.
+Here we apply `rg` as our search tool, which is claimed as the fastest search tool and is actively maintained.
+So we should install `rg` before ctrlSF can work, the install process can be obtained in ctrlSF site linked above.
