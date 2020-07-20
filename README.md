@@ -46,7 +46,7 @@ git submodule update ./bundle/Vundle.vim
 The basic instruction is:
 ```
 cd ./bundle/YouCompleteMe/
-./install.py --clanged-completer
+./install.py --clangd-completer
 ```
 The details can ne obtained in official site linked above.
 ### ctrlSF plugin dependency
