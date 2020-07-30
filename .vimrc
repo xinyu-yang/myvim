@@ -29,7 +29,7 @@ nmap <Leader>M %
 "Define undo shortcut
 nmap <Leader>u :u<CR>
 "Spell checking
-set spell
+"set spell
 "inoremap <Leader>cs <C-X>s
 
 " vundle 环境设置
@@ -43,7 +43,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/phd'
 Plugin 'morhetz/gruvbox'
-Plugin 'Lokaltog/vim-powerline'
+Plugin 'vim-airline/vim-airline'
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
