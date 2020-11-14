@@ -39,7 +39,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 "Appearance
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/phd'
 Plugin 'morhetz/gruvbox'
@@ -51,9 +50,6 @@ Plugin 'derekwyatt/vim-fswitch'
 "Plugin 'kshenoy/vim-signature'
 "Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 Plugin 'majutsushi/tagbar'
-"Plugin 'vim-scripts/DfrankUtil'
-"Plugin 'vim-scripts/vimprj'
-"Plugin 'vim-scripts/indexer.tar.gz'
 " ctrlsf: install ripgrep first
 Plugin 'dyng/ctrlsf.vim'
 "Plugin 'terryma/vim-multiple-cursors'
@@ -89,7 +85,6 @@ filetype plugin indent on
 "Set color
 set background=dark
 "colorscheme default
-"colorscheme solarized
 "colorscheme molokai
 "colorscheme phd
 colorscheme gruvbox
@@ -146,6 +141,8 @@ nmap     <Leader>fp <Plug>CtrlSFPwordPath
 nnoremap <Leader>fo :CtrlSFOpen<CR>
 nnoremap <Leader>ft :CtrlSFToggle<CR>
 inoremap <Leader>ft <Esc>:CtrlSFToggle<CR>
+let g:ctrlsf_auto_focus='start'
+let g:ctrlsf_ackprg='/usr/bin/rg'
 
 "NERDTree plugin shortcut
 "Open project
@@ -241,8 +238,8 @@ let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
 "set tags+=/usr/include/c++/5/stdcpp.tags
 "set tags+=~/.vim/tags/cpp54_tags
 set tags+=~/.vim/tags/include_tags
-"set tags+=/mnt/e/mb_code/metls/ctag_metls
-set tags+=/mnt/e/mb_code/matls-implementation/matls-openssl-src/ctag_matls
+set tags+=~/mb/metls/ctag_metls
+"set tags+=/mnt/e/mb_code/matls-implementation/matls-openssl-src/ctag_matls
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
@@ -270,7 +267,8 @@ let g:ycm_collect_identifiers_from_tags_files=1
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
 inoremap <Leader>yo <C-x><C-o>
 " set short for force semantic completion
-inoremap <Leader>ys <C-Space>
+let g:ycm_key_invoke_completion='<C-Z>'
+inoremap <Leader>ys <C-Z>
 " turn off YCM
 nnoremap <Leader>yf :let g:ycm_auto_trigger=0<CR>                
 " turn on YCM
@@ -294,3 +292,4 @@ let g:ycm_register_as_syntastic_checker = 0
 " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gi :YcmCompleter GoToImplementation<CR>
