@@ -242,7 +242,7 @@ let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
 "set tags+=~/.vim/tags/cpp54_tags
 set tags+=~/.vim/tags/include_tags
 "set tags+=/mnt/e/mb_code/metls/ctag_metls
-set tags+=/mnt/e/mb_code/matls-implementation/matls-openssl-src/ctag_matls
+set tags+=/mnt/f/mb_code/matls-implementation/matls-openssl-src/ctag_matls
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
@@ -270,7 +270,8 @@ let g:ycm_collect_identifiers_from_tags_files=1
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
 inoremap <Leader>yo <C-x><C-o>
 " set short for force semantic completion
-inoremap <Leader>ys <C-Space>
+let g:ycm_key_invoke_completion='<C-Z>'
+inoremap <Leader>ys <C-Z>
 " turn off YCM
 nnoremap <Leader>yf :let g:ycm_auto_trigger=0<CR>                
 " turn on YCM
@@ -294,3 +295,21 @@ let g:ycm_register_as_syntastic_checker = 0
 " nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gi :YcmCompleter GoToImplementation<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+
+function! CheckForCustomConfiguration()
+    "check for .vim in the directory containing the newly opened file
+    let file_path = expand('%:p:h')
+    while file_path != '/' 
+        let config_file = file_path . '/.cust.vim'
+        "echo config_file
+        if filereadable(config_file)
+            exe 'source' config_file
+            break
+        endif
+        let file_path = fnamemodify(file_path, ':h')
+    endwhile
+endfunction
+
+au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
