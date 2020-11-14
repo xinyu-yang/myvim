@@ -54,15 +54,15 @@ Plugin 'majutsushi/tagbar'
 Plugin 'dyng/ctrlsf.vim'
 "Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'vim-scripts/DrawIt'
+"Plugin 'vim-scripts/DrawIt'
 Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'derekwyatt/vim-protodef'
+"Plugin 'derekwyatt/vim-protodef'
 Plugin 'scrooloose/nerdtree'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'gcmt/wildfire.vim'
-Plugin 'sjl/gundo.vim'
-Plugin 'Lokaltog/vim-easymotion'
+"Plugin 'sjl/gundo.vim'
+"Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'suan/vim-instant-markdown'
 "Plugin 'lilydjwg/fcitx.vim'
 Plugin 'nfvs/vim-perforce'
@@ -142,7 +142,6 @@ nnoremap <Leader>fo :CtrlSFOpen<CR>
 nnoremap <Leader>ft :CtrlSFToggle<CR>
 inoremap <Leader>ft <Esc>:CtrlSFToggle<CR>
 let g:ctrlsf_auto_focus='start'
-let g:ctrlsf_ackprg='/usr/bin/rg'
 
 "NERDTree plugin shortcut
 "Open project
@@ -235,11 +234,6 @@ let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
 "Omnicomplete
 let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
-"set tags+=/usr/include/c++/5/stdcpp.tags
-"set tags+=~/.vim/tags/cpp54_tags
-set tags+=~/.vim/tags/include_tags
-set tags+=~/mb/metls/ctag_metls
-"set tags+=/mnt/e/mb_code/matls-implementation/matls-openssl-src/ctag_matls
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
@@ -293,3 +287,20 @@ let g:ycm_register_as_syntastic_checker = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gi :YcmCompleter GoToImplementation<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+
+function! CheckForCustomConfiguration()
+    "check for .vim in the directory containing the newly opened file
+    let file_path = expand('%:p:h')
+    while file_path != '/' 
+        let config_file = file_path . '/.cust.vim'
+        "echo config_file
+        if filereadable(config_file)
+            exe 'source' config_file
+            break
+        endif
+        let file_path = fnamemodify(file_path, ':h')
+    endwhile
+endfunction
+
+au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
