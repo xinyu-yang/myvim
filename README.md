@@ -7,12 +7,13 @@ sudo apt-get remove --purge vim vim-tiny vim vim-runtime gvim vim-common vim-gui
 ```
 
 ## Install prerequisite libraries
-[REF](https://github.com/ycm-core/YouCompleteMe/wiki/Building-Vim-from-source)
+* [REF](https://github.com/ycm-core/YouCompleteMe/wiki/Building-Vim-from-source)
 ```shell
 sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
-libcairo2-dev libx11-dev libxpm-dev libxt-dev python2-dev \
-python3-dev ruby-dev lua5.2 liblua5.2-dev libperl-dev git
+libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
+ruby-dev lua5.2 liblua5.2-dev libperl-dev git
 ```
+* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., --enabled-shared, libbz2-dev) are necessory. 
 
 ## Clone and compile
 ```shell
@@ -20,14 +21,14 @@ git clone git@github.com:vim/vim.git
 cd vim/
 ./configure --with-features=huge \
             --enable-multibyte \
-	    --enable-rubyinterp=yes \
-	    --enable-perlinterp=yes \
-	    --enable-luainterp=yes \
-        --enable-gui=gtk2 \
-        --enable-cscope \
-        --prefix=/usr/local \
-	    --enable-python3interp=yes \
-	    --with-python3-config-dir=/usr/lib/python3.5/config
+            --enable-rubyinterp=yes \
+            --enable-perlinterp=yes \
+            --enable-luainterp=yes \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix=/usr/local \
+            --enable-python3interp=yes \
+            --with-python3-config-dir=/usr/local/python3.8/config
 make
 make install
 ```
@@ -47,6 +48,12 @@ git submodule update ./bundle/Vundle.vim
 ```
 ## There are some operates should be performed before work.
 ### YouCompleteMe compiled require
+YCM has some requirements:
+* GCC version >= 8
+* VIM version >= v8.1.2269
+* Python3 version > 3.5
+For details, refer to YCM reporsitory.
+
 [YCM](https://github.com/ycm-core/YouCompleteMe) may not work before we compile it mannually.
 The basic instruction is:
 ```
