@@ -32,6 +32,9 @@ nmap <Leader>u :u<CR>
 "set spell
 "inoremap <Leader>cs <C-X>s
 
+""Set python3 path(only for python3/dyn)
+"set pythonthreedll=libpython3.8.so
+
 " vundle 环境设置
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -60,7 +63,7 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'derekwyatt/vim-protodef'
 Plugin 'scrooloose/nerdtree'
 Plugin 'fholgado/minibufexpl.vim'
-Plugin 'gcmt/wildfire.vim'
+"Plugin 'gcmt/wildfire.vim'
 "Plugin 'sjl/gundo.vim'
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'suan/vim-instant-markdown'
