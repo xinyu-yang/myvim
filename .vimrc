@@ -2,6 +2,9 @@
 let mapleader=";"
 
 command W w !sudo tee "%" > /dev/null
+" clipboard seriously slow down startup speed in X11 mode.
+" https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
+set clipboard=exclude:.*
 "Define shortcut key copy selected text to system clipboard
 vnoremap <Leader>y "+y
 "Define shortcut key copy text of clipboard to vim
@@ -24,10 +27,6 @@ nnoremap <Leader>hw <C-W>h
 nnoremap <Leader>kw <C-W>k
 "Jump to down window
 nnoremap <Leader>jw <C-W>j
-"Define shortcut key jump among 
-nmap <Leader>M %
-"Define undo shortcut
-nmap <Leader>u :u<CR>
 "Spell checking
 "set spell
 "inoremap <Leader>cs <C-X>s
@@ -46,7 +45,6 @@ Plugin 'tomasr/molokai'
 Plugin 'vim-scripts/phd'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
-
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'derekwyatt/vim-fswitch'
@@ -62,16 +60,17 @@ Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'derekwyatt/vim-protodef'
 Plugin 'scrooloose/nerdtree'
-Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'gcmt/wildfire.vim'
 "Plugin 'sjl/gundo.vim'
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'suan/vim-instant-markdown'
 "Plugin 'lilydjwg/fcitx.vim'
-Plugin 'nfvs/vim-perforce'
 " 插件列表结束
 call vundle#end()
+
 "Make setting with immediate effect
+"Note: may trigger abnormal in tagbar+NERDTree
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 syntax enable
@@ -79,8 +78,6 @@ syntax on
 set number
 set autoindent
 set backspace=indent,eol,start
-"File type detect on
-filetype on
 "Load relavant plugin according to detected file type
 filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
@@ -103,12 +100,12 @@ set number
 "set cursorcolumn
 "Highlight search result
 set hlsearch
-"中文字体测试
-"Set status bar type
-let g:Powerline_colorscheme='solarized256'
 
-"Auto indent according to lanauage
-filetype indent on
+"show inputing cmd
+set showcmd
+"auto complete menu cmd
+set wildmenu
+
 "Expand tab to space
 set expandtab
 "Set space number of tab when edit
@@ -118,7 +115,52 @@ set shiftwidth=4
 "Continued space number that can be considered as tab
 set softtabstop=4
 
-"Set visiable indent
+"###<vim-airline>
+"Symbols
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.dirty='⚡'
+let g:airline_symbols.maxlinenr = '┋'
+"*tabline* setting.
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#fnamemod = ':p:.'
+let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#tabline#alt_sep = 1
+"let airline#extensions#tabline#current_first = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+
+"*whitespace* setting.
+"https://stackoverflow.com/questions/32588604/vim-airline-what-is-trailing1
+set list          " Display unprintable characters f12 - switches
+set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
+" Toggle above :set invlist
+"let g:airline#extensions#whitespace#symbol = '!'
+" checks options.
+let g:airline#extensions#whitespace#checks =
+\  [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts' ]
+" To disable mixed-indent-file for go files use:
+let g:airline#extensions#whitespace#skip_indent_check_ft =
+\  {'go': ['mixed-indent-file'],
+\    'c': [ 'indent', 'mixed-indent-file' ] }
+
+"Other extensions setting.
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#nerdtree_statusline = 1
+let g:airline#extensions#ycm#enabled = 1
+let g:airline#extensions#ycm#error_symbol = 'E:'
+let g:airline#extensions#ycm#warning_symbol = 'W:'
+
+"###Set <visiable indent>
 "Start with vim
 let g:indent_guides_enable_on_vim_startup=1
 "Visualize from second level
@@ -126,16 +168,18 @@ let g:indent_guides_start_level=2
 "Color block width
 let g:indent_guides_guide_size=1
 "Shortcut key of visible indent
+"nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 "Set fold mode indent/syntax
-"set foldmethod=indent
-set foldmethod=syntax
+set foldmethod=indent
+"set foldmethod=syntax
 "stop fold when vim start
 set nofoldenable
-"switch between *.cpp and *.h
+
+"###(p:<vim-fswitch>) switch between *.cpp and *.h
 nmap <silent> <Leader>sw :FSHere<cr>
 
-" CtrlSF shortcut
+"###<CtrlSF> shortcut
 nmap     <Leader>ff <Plug>CtrlSFPrompt
 vmap     <Leader>ff <Plug>CtrlSFVwordPath
 vmap     <Leader>fF <Plug>CtrlSFVwordExec
@@ -144,9 +188,9 @@ nmap     <Leader>fp <Plug>CtrlSFPwordPath
 nnoremap <Leader>fo :CtrlSFOpen<CR>
 nnoremap <Leader>ft :CtrlSFToggle<CR>
 inoremap <Leader>ft <Esc>:CtrlSFToggle<CR>
-let g:ctrlsf_auto_focus='start'
+"let g:ctrlsf_auto_focus='start'
 
-"NERDTree plugin shortcut
+"###<NERDTree> plugin shortcut
 "Open project
 nmap <Leader>fl :NERDTreeToggle<CR>
 "Set subwindow width
@@ -160,8 +204,7 @@ let NERDTreeMinimalUI=1
 "Delete buffer automatically when file deleted
 let NERDTreeAutoDeleteBuffer=1
 
-set showcmd
-set wildmenu
+"###Signature setting.
 let g:SignatureMap = {
         \ 'Leader'             :  "m",
         \ 'PlaceNextMark'      :  "m,",
@@ -186,6 +229,7 @@ let g:SignatureMap = {
         \ 'ListLocalMarkers'   :  "m?"
         \ }
 
+"###<tagbar>
 "Set the position of child window in the left.
 let tagbar_left=1
 "Set shortcut key to display/hide tag list child window.
@@ -229,13 +273,13 @@ let g:tarbar_type_cpp = {
      \ }
 \ }
 
-"Ultisnips shortcut define
+"###<Ultisnips> shortcut define
 let g:UltiSnipsSnippetDirectories=["mysnippets"]
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
-"Omnicomplete
+"###<Omnicomplete>
 let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -250,7 +294,8 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
-" YCM 补全菜单配色
+"###<YCM>
+" YCM Color config.
 " 菜单
 "highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
 " 选中项
@@ -267,11 +312,14 @@ inoremap <Leader>yo <C-x><C-o>
 let g:ycm_key_invoke_completion='<C-Z>'
 inoremap <Leader>ys <C-Z>
 " turn off YCM
-nnoremap <Leader>yf :let g:ycm_auto_trigger=0<CR>                
+nnoremap <Leader>yf :let g:ycm_auto_trigger=0<CR>
 " turn on YCM
 nnoremap <Leader>yn :let g:ycm_auto_trigger=1<CR>
 " 补全内容不以分割子窗口形式出现，只显示补全列表
 set completeopt-=preview
+let g:ycm_enable_diagnostic_highlighting = 1
+" Open locationlist for errors and warnings.
+nnoremap <Leader>yd :YcmDiags
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 禁止缓存匹配项，每次都重新生成匹配项
@@ -286,12 +334,12 @@ let g:ycm_key_list_stop_completion = ['<CR>']
 " 跳转到定义处, 分屏打开
 let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_register_as_syntastic_checker = 0
-" nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gi :YcmCompleter GoToImplementation<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 
+"### Recursive find customize config file <.cust.vim>
 function! CheckForCustomConfiguration()
     "check for .vim in the directory containing the newly opened file
     let file_path = expand('%:p:h')
@@ -307,3 +355,4 @@ function! CheckForCustomConfiguration()
 endfunction
 
 au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
+

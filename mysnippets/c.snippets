@@ -1,13 +1,80 @@
-snippet ( "bracket" i
-(${1})${2}
+priority -50
+
+#================================= 
+#预处理 
+#================================= 
+# #include "..." 
+snippet INC 
+#include "${1:TODO}"${2} 
+endsnippet 
+# #include <...> 
+snippet inc 
+#include <${1:TODO}>${2} 
+endsnippet 
+
+snippet #def "#define ..." b
+#define ${1}
 endsnippet
 
-snippet [ "square bracket" i
-[${1}]${2}
+snippet #if "#ifdef ... #endif" b
+#ifdef ${1}
+#endif
 endsnippet
 
-snippet { "brace" i
-\{
-	${1}
-\}
+#https://github.com/honza/vim-snippets/blob/master/UltiSnips/c.snippets
+snippet #ifn "#ifndef ... #endif"
+#ifndef ${1/([A-Za-z0-9_]+).*/$1/}
+#endif /* ifndef $1 */
 endsnippet
+
+#================================= 
+#结构语句 
+#================================= 
+# if 
+snippet if 
+if (${1:/* condition */}) 
+{ 
+    ${2:TODO} 
+} 
+endsnippet 
+# else if 
+snippet ei 
+else if (${1:/* condition */}) 
+{ 
+    ${2:TODO} 
+} 
+endsnippet 
+# else 
+snippet el 
+else 
+{ 
+    ${1:TODO} 
+} 
+endsnippet
+
+# Do While Loop 
+snippet do 
+do 
+{
+    ${2:TODO} 
+} while (${1:/* condition */}); 
+endsnippet 
+# While Loop 
+snippet wh 
+while (${1:/* condition */}) 
+{ 
+    ${2:TODO} 
+} 
+endsnippet 
+# switch 
+snippet sw 
+switch (${1:/* condition */}) { 
+    case ${2:c}: { 
+    } 
+    break; 
+
+    default: { 
+    } 
+    break; 
+} 
+endsnippet 
