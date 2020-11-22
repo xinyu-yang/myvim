@@ -1,3 +1,5 @@
+"encoding: utf-8
+set encoding=utf-8
 "Define shortcut key, namely <Leader>
 let mapleader=";"
 
@@ -5,16 +7,18 @@ command W w !sudo tee "%" > /dev/null
 " clipboard seriously slow down startup speed in X11 mode.
 " https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
 set clipboard=exclude:.*
-"Define shortcut key copy selected text to system clipboard
-vnoremap <Leader>y "+y
-"Define shortcut key copy text of clipboard to vim
-nmap <Leader>p "+p
+"Define shortcut key of system clipboard yank and paste (useless when upper
+"setting uncomment).
+"vnoremap <Leader>y "+y
+"nmap <Leader>p "+p
+" Define shortcut of yank and paste to an random selected register x.
+vnoremap <Leader>y "xy
+nmap <Leader>p "xp
+
 "Define shortcut key close this split window
 nmap <Leader>q :q<CR>
 "Define shortcut save content of this window
 nmap <Leader>w :w<CR>
-"Define shortcut key save and quit 
-"nmap <Leader>WQ :wq<CR>
 "quit vim without do anything
 nmap <Leader>Q :q!<CR>
 "Sequence traverse child windows
@@ -47,11 +51,11 @@ Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
+"Switch
 Plugin 'derekwyatt/vim-fswitch'
 "Plugin 'kshenoy/vim-signature'
 "Plugin 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
 Plugin 'majutsushi/tagbar'
-" ctrlsf: install ripgrep first
 Plugin 'dyng/ctrlsf.vim'
 "Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
@@ -60,7 +64,6 @@ Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'derekwyatt/vim-protodef'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'gcmt/wildfire.vim'
 "Plugin 'sjl/gundo.vim'
 "Plugin 'Lokaltog/vim-easymotion'
@@ -82,11 +85,9 @@ set backspace=indent,eol,start
 filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 
-"Set color
+"Set colorscheme
 set background=dark
 "colorscheme default
-"colorscheme molokai
-"colorscheme phd
 colorscheme gruvbox
 
 "Always show status bar
@@ -117,17 +118,11 @@ set softtabstop=4
 
 "###<vim-airline>
 "Symbols
-if !exists('g:airline_symbols')
-let g:airline_symbols = {}
-endif
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.dirty='⚡'
-let g:airline_symbols.maxlinenr = '┋'
+" NOTE: ga (get ascii) to get unicode value.
+" NOTE: Input special symbol, Ctrl+v -> u[unicode].
+" Font patch, https://github.com/ryanoasis/nerd-fonts
+" set powerline symbols (test ,)
+let g:airline_powerline_fonts = 1
 "*tabline* setting.
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -144,7 +139,6 @@ nnoremap ]b :bn<CR>
 set list          " Display unprintable characters f12 - switches
 set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 " Toggle above :set invlist
-"let g:airline#extensions#whitespace#symbol = '!'
 " checks options.
 let g:airline#extensions#whitespace#checks =
 \  [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts' ]
@@ -157,8 +151,8 @@ let g:airline#extensions#whitespace#skip_indent_check_ft =
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline#extensions#nerdtree_statusline = 1
 let g:airline#extensions#ycm#enabled = 1
-let g:airline#extensions#ycm#error_symbol = 'E:'
-let g:airline#extensions#ycm#warning_symbol = 'W:'
+let g:airline#extensions#ycm#error_symbol = '☻:' "u263B
+let g:airline#extensions#ycm#warning_symbol = '☺:' "u263A
 
 "###Set <visiable indent>
 "Start with vim
@@ -319,7 +313,7 @@ nnoremap <Leader>yn :let g:ycm_auto_trigger=1<CR>
 set completeopt-=preview
 let g:ycm_enable_diagnostic_highlighting = 1
 " Open locationlist for errors and warnings.
-nnoremap <Leader>yd :YcmDiags
+nnoremap <Leader>yd :YcmDiags<CR>
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 禁止缓存匹配项，每次都重新生成匹配项
@@ -343,7 +337,7 @@ nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 function! CheckForCustomConfiguration()
     "check for .vim in the directory containing the newly opened file
     let file_path = expand('%:p:h')
-    while file_path != '/' 
+    while file_path != '/'
         let config_file = file_path . '/.cust.vim'
         "echo config_file
         if filereadable(config_file)
