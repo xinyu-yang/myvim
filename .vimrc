@@ -125,12 +125,16 @@ set softtabstop=4
 let g:airline_powerline_fonts = 1
 "*tabline* setting.
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#fnamemod = ':p:.'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#alt_sep = 1
-"let airline#extensions#tabline#current_first = 1
+"let g:airline#extensions#tabline#current_first = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_format = '%s:'
+let g:airline#extensions#tabline#buffers_label = 'B'
+let g:airline#extensions#tabline#tabs_label = 'T'
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
@@ -270,8 +274,10 @@ let g:tarbar_type_cpp = {
 "###<Ultisnips> shortcut define
 let g:UltiSnipsSnippetDirectories=["mysnippets"]
 let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+"let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+"let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "###<Omnicomplete>
 let OmniCpp_DefaultNamespaces = ["_GLIBCXX_STD"]
