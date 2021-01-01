@@ -45,8 +45,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 "Appearance
-Plugin 'tomasr/molokai'
-Plugin 'vim-scripts/phd'
+"Plugin 'tomasr/molokai'
+"Plugin 'vim-scripts/phd'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
