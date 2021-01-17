@@ -86,8 +86,11 @@ set backspace=indent,eol,start
 filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 
-"Set colorscheme
+"Set colorscheme dark | light
 set background=dark
+
+"gruvbox setting.
+let g:gruvbox_transparent_bg=1
 "colorscheme default
 colorscheme gruvbox
 
