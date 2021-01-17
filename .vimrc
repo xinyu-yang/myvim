@@ -69,6 +69,7 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'suan/vim-instant-markdown'
 "Plugin 'lilydjwg/fcitx.vim'
+Plugin 'tamarin-prover/editors'
 " 插件列表结束
 call vundle#end()
 
