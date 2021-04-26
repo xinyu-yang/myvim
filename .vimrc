@@ -356,3 +356,11 @@ endfunction
 
 au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
 
+" integrate lf
+let lfvim = '~/.vim/lf.vim'
+if filereadable(expand(lfvim))
+    exec "source " lfvim
+endif
+
+nnoremap <leader>lf :LF<cr>
+

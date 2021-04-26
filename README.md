@@ -76,3 +76,6 @@ A suitable font should be installed before `airline` well display. There are man
 * nerd-fonts: https://github.com/ryanoasis/nerd-fonts
 
 nerd-fonts supports patch fonts (e.g., Dejavu Sans Mono) yourself, that sounds interesting. As far as I know, Dejavu Sans Mono supports more symbols than Fira Code (An very popular ligature font) and Cascadia Mono (Windows Terminal default font).
+
+### LF usage
+[lf](https://github.com/gokcehan/lf) is used to browse files, it can be integrated into vim by a simple vim script.
