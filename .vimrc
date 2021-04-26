@@ -45,8 +45,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 "Appearance
-Plugin 'tomasr/molokai'
-Plugin 'vim-scripts/phd'
+"Plugin 'tomasr/molokai'
+"Plugin 'vim-scripts/phd'
 Plugin 'morhetz/gruvbox'
 Plugin 'vim-airline/vim-airline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -69,6 +69,7 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'suan/vim-instant-markdown'
 "Plugin 'lilydjwg/fcitx.vim'
+Plugin 'tamarin-prover/editors'
 " 插件列表结束
 call vundle#end()
 
@@ -85,8 +86,11 @@ set backspace=indent,eol,start
 filetype plugin indent on
 "set omnifunc=syntaxcomplete#Complete
 
-"Set colorscheme
+"Set colorscheme dark | light
 set background=dark
+
+"gruvbox setting.
+let g:gruvbox_transparent_bg=1
 "colorscheme default
 colorscheme gruvbox
 
