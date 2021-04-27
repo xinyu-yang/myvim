@@ -13,7 +13,9 @@ sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
 libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
 ruby-dev lua5.2 liblua5.2-dev libperl-dev git
 ```
-* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., --enabled-shared, libbz2-dev) are necessory. So if YCM compile fail, we have to reinstall python3.
+* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., ./confugure --enabled-shared, sudo apt install libbz2-dev) are necessory. So if YCM compile fail, we have to reinstall python3.
+
+> Note: Uninstall source compiled python is a nasty work, maybe you can try `checkinstall`
 
 ## Clone and compile
 ```shell
@@ -50,9 +52,10 @@ git submodule update ./bundle/Vundle.vim
 ## There are some operates should be performed before work.
 ### YouCompleteMe compiled require
 YCM has some requirements:
-* GCC version >= 8
-* VIM version >= v8.1.2269
-* Python3 version > 3.5
+* `GCC version >= 8` [ubuntu16.04 ref](https://gist.github.com/jlblancoc/99521194aba975286c80f93e47966dc5)
+* `VIM version >= v8.1.2269`
+* `Python3 version > 3.5`
+* `CMake >= 3.14.4`
 
 For details, refer to YCM reporsitory.
 
@@ -60,9 +63,10 @@ For details, refer to YCM reporsitory.
 The basic instruction is:
 ```
 cd ./bundle/YouCompleteMe/
-./install.py --clangd-completer
+sudo ./install.py --clangd-completer
 ```
-The details can ne obtained in official site linked above.
+The details can be obtained in official site linked above.
+
 ### CtrlSF plugin dependency
 [CtrlSF](https://github.com/dyng/ctrlsf.vim) is plugin which provide handy and powerful search function in big project. Its search ability is powered by tools like `ack`,`ag`,`pt` and `rg`, which are similar to famous `grep`, but faster and more powerful than it.
 
