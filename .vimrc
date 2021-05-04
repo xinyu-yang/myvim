@@ -40,6 +40,7 @@ nnoremap <Leader>jw <C-W>j
 
 " vundle 环境设置
 filetype off
+
 set rtp+=~/.vim/bundle/Vundle.vim
 " vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
 call vundle#begin()
@@ -75,7 +76,7 @@ call vundle#end()
 
 "Make setting with immediate effect
 "Note: may trigger abnormal in tagbar+NERDTree
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 syntax enable
 syntax on
@@ -89,10 +90,10 @@ filetype plugin indent on
 "Set colorscheme dark | light
 set background=dark
 
-"gruvbox setting.
-let g:gruvbox_transparent_bg=1
 "colorscheme default
 colorscheme gruvbox
+"transparent background
+highlight Normal ctermbg=None
 
 "Always show status bar
 set laststatus=2
