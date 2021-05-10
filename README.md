@@ -1,4 +1,5 @@
 # myvim
+
 ## Remove old vim
 ```shell
 vim --version
@@ -17,7 +18,7 @@ ruby-dev lua5.2 liblua5.2-dev libperl-dev git
 
 > Note: Uninstall source compiled python is a nasty work, maybe you can try `checkinstall`
 
-## Clone and compile
+## Clone vim source code and compile
 ```shell
 git clone https://github.com/vim/vim.git
 cd vim/
@@ -35,12 +36,12 @@ make
 make install
 ```
 
-## clone this repository first.
+## Clone this repository
 ```shell
 cd ~
 git clone [this repository] .vim
 ```
-## then link ~/.vimrc
+## Then link ~/.vimrc
 ```shell
 ln -s ~/.vim/.vimrc ~/.vimrc
 cd .vim
@@ -49,7 +50,7 @@ git submodule update ./bundle/Vundle.vim
 
 :PluginInstall
 ```
-## There are some operates should be performed before work.
+## There are some operates should be performed before work
 ### YouCompleteMe compiled require
 YCM has some requirements:
 * `GCC version >= 8` [ubuntu16.04 ref](https://gist.github.com/jlblancoc/99521194aba975286c80f93e47966dc5)
