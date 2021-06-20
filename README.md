@@ -50,7 +50,7 @@ git submodule update ./bundle/Vundle.vim
 
 :PluginInstall
 ```
-## There are some operates should be performed before work
+## There are some operates should be performed before
 ### YouCompleteMe compiled require
 YCM has some requirements:
 * `GCC version >= 8` [ubuntu16.04 ref](https://gist.github.com/jlblancoc/99521194aba975286c80f93e47966dc5)
