@@ -78,6 +78,12 @@ call vundle#end()
 "Note: may trigger abnormal in tagbar+NERDTree
 "autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+" typeql
+augroup filetypedetect
+  au! BufRead,BufNewFile *.tql		setfiletype tql
+  "au! BufRead,BufNewFile *.xyz		setfiletype drawing
+augroup END
+
 syntax enable
 syntax on
 set number
