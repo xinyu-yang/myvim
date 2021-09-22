@@ -15,7 +15,7 @@ setlocal iskeyword+=-
 
 " Core Graql keywords
 syntax keyword GraqlKeywords match get insert delete compute aggregate
-syntax keyword GraqlKeywords isa! isa val id label regex has aggregate compute group ask
+syntax keyword GraqlKeywords isa! isa val iid label regex has aggregate compute group ask type
 
 " Statistics (OLAP and OLTP) 
 syntax keyword GraqlStatistics count min sum max min median mean
@@ -42,9 +42,9 @@ setlocal iskeyword+=<
 syntax keyword GraqlTemplating for if elseif else do in true false and or not null = != < <= > >=  " . 
 
 " Builtin types 
-syntax keyword GraqlDatatypes int long float double boolean date string
+syntax keyword GraqlDatatypes long double boolean datetime string
 " also the root schema types as their own group
-syntax keyword GraqlSpecial relationship entity attribute
+syntax keyword GraqlSpecial relation entity attribute
 
 syntax match GraqlMacros "@[^\(]+" 
 
@@ -61,7 +61,7 @@ syntax match GraqlVariable "\$[a-zA-Z_][a-zA-Z_\-0-9]*"
 syntax keyword GraqlRuleKeywords when then
 
 " Schema definitions
-syntax keyword GraqlSchemaKeywords define undefine sub relates as plays has datatype is\-abstract
+syntax keyword GraqlSchemaKeywords define undefine sub relates as plays owns has datatype abstract value
 
 
 " Set up highlighting
