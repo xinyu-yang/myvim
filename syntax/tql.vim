@@ -61,7 +61,7 @@ syntax match GraqlVariable "\$[a-zA-Z_][a-zA-Z_\-0-9]*"
 syntax keyword GraqlRuleKeywords when then
 
 " Schema definitions
-syntax keyword GraqlSchemaKeywords define undefine sub relates as plays owns has datatype abstract value
+syntax keyword GraqlSchemaKeywords define undefine sub relates as plays owns has datatype abstract value key
 
 
 " Set up highlighting

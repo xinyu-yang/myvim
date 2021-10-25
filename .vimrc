@@ -64,7 +64,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'derekwyatt/vim-protodef'
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
 "Plugin 'gcmt/wildfire.vim'
 "Plugin 'sjl/gundo.vim'
 "Plugin 'Lokaltog/vim-easymotion'
@@ -76,7 +76,7 @@ call vundle#end()
 
 "Make setting with immediate effect
 "Note: may trigger abnormal in tagbar+NERDTree
-"autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " typeql
 augroup filetypedetect
@@ -199,19 +199,31 @@ nnoremap <Leader>ft :CtrlSFToggle<CR>
 inoremap <Leader>ft <Esc>:CtrlSFToggle<CR>
 "let g:ctrlsf_auto_focus='start'
 
-"###<NERDTree> plugin shortcut
-"Open project
-nmap <Leader>fl :NERDTreeToggle<CR>
-"Set subwindow width
-let NERDTreeWinSize=30
-"Set subwindow position
-let NERDTreeWinPos="right"
-"Set hidden file
-let NERDTreeShowHidden=1
-"Hidden verbose help information in subwindow
-let NERDTreeMinimalUI=1
-"Delete buffer automatically when file deleted
-let NERDTreeAutoDeleteBuffer=1
+"" Deprecated: Using embedded netrw to replace it.
+""###<NERDTree> plugin shortcut
+""Open project
+"nmap <Leader>fl :NERDTreeToggle<CR>
+""Set subwindow width
+"let NERDTreeWinSize=30
+""Set subwindow position
+"let NERDTreeWinPos="right"
+""Set hidden file
+"let NERDTreeShowHidden=1
+""Hidden verbose help information in subwindow
+"let NERDTreeMinimalUI=1
+""Delete buffer automatically when file deleted
+"let NERDTreeAutoDeleteBuffer=1
+
+" <Netrw> Setting
+" Open browser window
+nnoremap <Leader>fl :Vexplore!<CR>
+" Set open mode
+let g:netrw_browse_split = 4
+" Set tree mode (thin/long/wide/tree)
+let g:netrw_liststyle = 3
+let g:netrw_altv = 1
+" Set window size
+let g:netrw_winsize = -30
 
 "###Signature setting.
 let g:SignatureMap = {
