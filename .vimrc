@@ -127,6 +127,7 @@ if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
 
+
 "### Recursive find customize config file <.cust.vim>
 function! CheckForCustomConfiguration()
     "check for .vim in the directory containing the newly opened file
@@ -144,10 +145,14 @@ endfunction
 
 au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
 
-" Integrate lf
+
+"### Integrate lf
 let lfvim = '~/.vim/lf.vim'
 if filereadable(expand(lfvim))
     exec "source " lfvim
 endif
-
+" The shortcut opening lf
 nnoremap <leader>lf :LF<cr>
+
+" Last line is for proper wrapping of jemdoc lists, etc.
+autocmd Filetype jemdoc setlocal comments=:#,fb:-,fb:.,fb:--,fb:..,fb:\:
