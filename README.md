@@ -1,5 +1,7 @@
 # myvim
 
+![screenshot](https://i.loli.net/2021/11/22/wNt5PvpkadhErHq.png)
+
 ## Remove old vim
 ```shell
 vim --version
