@@ -14,11 +14,14 @@ sudo apt-get remove --purge vim vim-tiny vim-runtime gvim vim-common vim-gui-com
 ```shell
 sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
 libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
-ruby-dev lua5.2 liblua5.2-dev libperl-dev git
+ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
 ```
-* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., ./confugure --enabled-shared, sudo apt install libbz2-dev) are necessory. So if YCM compile fail, we have to reinstall python3.
+* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., `./confugure --enabled-shared`, `sudo apt install libbz2-dev`) are necessory. Some of them may incur error when compiling vim (e.g., `./configure --enable-pydebug`). So if YCM compile fail, we have to reinstall python3.
 
-> Note: Uninstall source compiled python is a nasty work, maybe you can try `checkinstall`
+> Note: Uninstall source compiled python is a nasty work:
+> rm python3.x in /usr/local/bin/
+> rm python3.x in /usr/local/lib/python3.x
+**But do not remove /usr/local/lib/libpython3.x.so before you make sure!**
 
 ## Clone vim source code and compile
 ```shell
@@ -33,7 +36,7 @@ cd vim/
             --enable-cscope \
             --prefix=/usr/local \
             --enable-python3interp=yes \
-            --with-python3-config-dir=/usr/local/python3.8/config
+            --with-python3-config-dir=$(python3-config --configdir)
 make
 make install
 ```
@@ -47,8 +50,7 @@ git clone [this repository] .vim
 ```shell
 ln -s ~/.vim/.vimrc ~/.vimrc
 cd .vim
-git submodule init ./bundle/Vundle.vim
-git submodule update ./bundle/Vundle.vim
+git submodule update --init ./bundle/Vundle.vim
 
 :PluginInstall
 ```
