@@ -54,8 +54,9 @@ git submodule update --init ./bundle/Vundle.vim
 
 :PluginInstall
 ```
+
 ## There are some operates should be performed before
-### YouCompleteMe compiled require
+### YouCompleteMe requirments
 YCM has some requirements:
 * `GCC version >= 8` [ubuntu16.04 ref](https://gist.github.com/jlblancoc/99521194aba975286c80f93e47966dc5)
 * `VIM version >= v8.1.2269`
@@ -64,21 +65,16 @@ YCM has some requirements:
 
 For details, refer to YCM reporsitory.
 
-[YCM](https://github.com/ycm-core/YouCompleteMe) may not work before we compile it mannually.
-The basic instruction is:
-```
-cd ./bundle/YouCompleteMe/
-sudo ./install.py --clangd-completer
-```
-The details can be obtained in official site linked above.
+### Tagbar requirements
+[Ctags](https://ctags.io/) should be installed before tagbar, as shown in area B can work. In addition, ctags is responsible for tag files, without which **jump** function in C/C++ can't work.
 
-### CtrlSF plugin dependency
+### CtrlSF plugin dependencies
 [CtrlSF](https://github.com/dyng/ctrlsf.vim) is plugin which provide handy and powerful search function in big project. Its search ability is powered by tools like `ack`,`ag`,`pt` and `rg`, which are similar to famous `grep`, but faster and more powerful than it.
 
 Here we apply [rg](https://github.com/BurntSushi/ripgrep) as our search tool, which is claimed as the fastest search tool and is actively maintained.
 So we should install `rg` before ctrlSF can work, the install process can be obtained in ctrlSF site linked above.
 
-### Powerline supported fonts.
+### Powerline supported fonts
 A suitable font should be installed before `airline` well display. There are many choice:
 * Cascadia Mono PL: https://github.com/microsoft/cascadia-code
 * Fira Code: https://github.com/tonsky/FiraCode (I donot like ligature font)
@@ -88,3 +84,25 @@ nerd-fonts supports patch fonts (e.g., Dejavu Sans Mono) yourself, that sounds i
 
 ### LF usage
 [lf](https://github.com/gokcehan/lf) is used to browse files, it can be integrated into vim by a simple vim script.
+
+## Clone this repository
+```shell
+cd ~
+git clone --recurse-submodules [this repository] .vim
+```
+## Then link ~/.vimrc
+```shell
+ln -s ~/.vim/.vimrc ~/.vimrc
+cd .vim
+git submodule update --init ./bundle/Vundle.vim
+
+:PluginInstall
+```
+
+[YCM](https://github.com/ycm-core/YouCompleteMe) may not work before we compile it mannually.
+The basic instruction is:
+```
+cd ./bundle/YouCompleteMe/
+./install.py --[clangd|cs|go|ts|rust|java]-completer
+```
+The details can be obtained in official site linked above.
