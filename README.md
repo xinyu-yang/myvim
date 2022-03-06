@@ -16,10 +16,13 @@ sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
 libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
 ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
 ```
+
 * Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., `./confugure --enabled-shared`, `sudo apt install libbz2-dev`) are necessory. Some of them may incur error when compiling vim (e.g., `./configure --enable-pydebug`). So if YCM compile fail, we have to reinstall python3.
 
 > Note: Uninstall source compiled python is a nasty work:
+>
 > rm python3.x in /usr/local/bin/
+>
 > rm python3.x in /usr/local/lib/python3.x
 **But do not remove /usr/local/lib/libpython3.x.so before you make sure!**
 
@@ -41,18 +44,15 @@ make
 make install
 ```
 
-## Clone this repository
+## Clone this repository and link the config file
 ```shell
-cd ~
-git clone [this repository] .vim
-```
-## Then link ~/.vimrc
-```shell
-ln -s ~/.vim/.vimrc ~/.vimrc
-cd .vim
-git submodule update --init ./bundle/Vundle.vim
+git clone [this repository] ~/.vim
+cd ~/.vim/
+./setup.sh
 
-:PluginInstall
+ln -s ~/.vim/.vimrc ~/.vimrc
+
+:PlugInstall
 ```
 
 ## There are some operates should be performed before
@@ -85,24 +85,12 @@ nerd-fonts supports patch fonts (e.g., Dejavu Sans Mono) yourself, that sounds i
 ### LF usage
 [lf](https://github.com/gokcehan/lf) is used to browse files, it can be integrated into vim by a simple vim script.
 
-## Clone this repository
-```shell
-cd ~
-git clone --recurse-submodules [this repository] .vim
-```
-## Then link ~/.vimrc
-```shell
-ln -s ~/.vim/.vimrc ~/.vimrc
-cd .vim
-git submodule update --init ./bundle/Vundle.vim
 
-:PluginInstall
-```
-
+### YouCompleteMe
 [YCM](https://github.com/ycm-core/YouCompleteMe) may not work before we compile it mannually.
 The basic instruction is:
 ```
-cd ./bundle/YouCompleteMe/
+cd ./plugged/YouCompleteMe/
 ./install.py --[clangd|cs|go|ts|rust|java]-completer
 ```
 The details can be obtained in official site linked above.

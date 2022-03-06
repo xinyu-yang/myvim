@@ -38,34 +38,28 @@ nnoremap <Leader>jw <C-W>j
 ""Set python3 path(only for python3/dyn)
 "set pythonthreedll=libpython3.8.so
 
-" vundle 环境设置
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
-" vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 "Appearance
-Plugin 'morhetz/gruvbox'
-Plugin 'vim-airline/vim-airline'
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'nathanaelkane/vim-indent-guides'
 "Display markers
-"Plugin 'kshenoy/vim-signature'
-Plugin 'majutsushi/tagbar'
-Plugin 'dyng/ctrlsf.vim'
-"Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/nerdcommenter'
-"Plugin 'vim-scripts/DrawIt'
-Plugin 'SirVer/ultisnips'
-Plugin 'Valloric/YouCompleteMe'
-"Plugin 'derekwyatt/vim-protodef'
-"Plugin 'gcmt/wildfire.vim'
-"Plugin 'sjl/gundo.vim'
-"Plugin 'Lokaltog/vim-easymotion'
-"Plugin 'suan/vim-instant-markdown'
-"Plugin 'lilydjwg/fcitx.vim'
-Plugin 'tamarin-prover/editors'
-call vundle#end()
+"Plug 'kshenoy/vim-signature'
+Plug 'majutsushi/tagbar'
+Plug 'dyng/ctrlsf.vim'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'vim-scripts/DrawIt'
+Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe'
+"Plug 'derekwyatt/vim-protodef'
+"Plug 'gcmt/wildfire.vim'
+"Plug 'sjl/gundo.vim'
+"Plug 'Lokaltog/vim-easymotion'
+"Plug 'suan/vim-instant-markdown'
+"Plug 'lilydjwg/fcitx.vim'
+Plug 'tamarin-prover/editors'
+call plug#end()
 
 "Make setting with immediate effect
 "Note: may trigger abnormal in tagbar+NERDTree
