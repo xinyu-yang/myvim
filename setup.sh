@@ -41,9 +41,16 @@ inst_lf(){
     fi
 }
 
+# Install node.js
+inst_node(){
+    echo "Installing nodejs..."
+    curl -sL install-node.vercel.app/lts | sudo bash -s -- --prefix=/usr/local/
+}
+
 
 # Install prerequirements
-array=(ctags lf rg)
+array=(ctags lf rg node)
+sudo apt install curl
 for app in ${array[*]}
 do
     if command -v ${app} > /dev/null 2>&1;

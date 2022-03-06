@@ -17,7 +17,7 @@ libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
 ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
 ```
 
-* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., `./confugure --enabled-shared`, `sudo apt install libbz2-dev`) are necessory. Some of them may incur error when compiling vim (e.g., `./configure --enable-pydebug`). So if YCM compile fail, we have to reinstall python3.
+* Also python3 should be installed with proper [prerequisites and configurations](https://stackoverflow.com/questions/8097161/how-would-i-build-python-myself-from-source-code-on-ubuntu), some of them (e.g., `./confugure --enabled-shared`, `sudo apt install libbz2-dev`) are necessory. Some of them may incur error when compiling vim (e.g., `./configure --enable-pydebug`).
 
 > Note: Uninstall source compiled python is a nasty work:
 >
@@ -56,17 +56,15 @@ ln -s ~/.vim/.vimrc ~/.vimrc
 ```
 
 ## There are some operates should be performed before
-### YouCompleteMe requirments
-YCM has some requirements:
-* `GCC version >= 8` [ubuntu16.04 ref](https://gist.github.com/jlblancoc/99521194aba975286c80f93e47966dc5)
-* `VIM version >= v8.1.2269`
-* `Python3 version > 3.5`
-* `CMake >= 3.14.4`
+Most of them have been coved in `setup.sh`. Currently, root priviledge is required to run this script.
 
-For details, refer to YCM reporsitory.
+### Coc.nvim requirments
+[Coc.nvim](https://github.com/neoclide/coc.nvim) has a requirement:
+* `node.js version >= 16`
 
 ### Tagbar requirements
 [Ctags](https://ctags.io/) should be installed before tagbar, as shown in area B can work. In addition, ctags is responsible for tag files, without which **jump** function in C/C++ can't work.
+- [ ] A script should be made to generate tag files with default configuration.
 
 ### CtrlSF plugin dependencies
 [CtrlSF](https://github.com/dyng/ctrlsf.vim) is plugin which provide handy and powerful search function in big project. Its search ability is powered by tools like `ack`,`ag`,`pt` and `rg`, which are similar to famous `grep`, but faster and more powerful than it.
@@ -82,15 +80,15 @@ A suitable font should be installed before `airline` well display. There are man
 
 nerd-fonts supports patch fonts (e.g., Dejavu Sans Mono) yourself, that sounds interesting. As far as I know, Dejavu Sans Mono supports more symbols than Fira Code (An very popular ligature font) and Cascadia Mono (Windows Terminal default font).
 
-### LF usage
+### lf usage
 [lf](https://github.com/gokcehan/lf) is used to browse files, it can be integrated into vim by a simple vim script.
 
 
-### YouCompleteMe
-[YCM](https://github.com/ycm-core/YouCompleteMe) may not work before we compile it mannually.
-The basic instruction is:
+### coc.nvim
+[coc.nvim](https://github.com/neoclide/coc.nvim) may not work before we install language plugins.
+Take the python3 as an example:
 ```
-cd ./plugged/YouCompleteMe/
-./install.py --[clangd|cs|go|ts|rust|java]-completer
+vim
+:cocInstall coc-pyright
 ```
 The details can be obtained in official site linked above.

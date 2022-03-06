@@ -51,14 +51,14 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'vim-scripts/DrawIt'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'derekwyatt/vim-protodef'
 "Plug 'gcmt/wildfire.vim'
 "Plug 'sjl/gundo.vim'
 "Plug 'Lokaltog/vim-easymotion'
 "Plug 'suan/vim-instant-markdown'
 "Plug 'lilydjwg/fcitx.vim'
-Plug 'tamarin-prover/editors'
+"Plug 'tamarin-prover/editors'
 call plug#end()
 
 "Make setting with immediate effect
@@ -71,7 +71,6 @@ set autoindent
 set backspace=indent,eol,start
 "Load relavant plugin according to detected file type
 filetype plugin indent on
-"set omnifunc=syntaxcomplete#Complete
 
 "Set colorscheme dark | light
 set background=dark
@@ -116,7 +115,7 @@ set foldmethod=indent
 set nofoldenable
 
 " Load Plugins' Settings
-let settingPath = '~/.vim/setting.vim'
+let settingPath = '~/.vim/scripts.vim/setting.vim'
 if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
@@ -141,7 +140,7 @@ au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
 
 
 "### Integrate lf
-let lfvim = '~/.vim/lf.vim'
+let lfvim = '~/.vim/scripts.vim/lf.vim'
 if filereadable(expand(lfvim))
     exec "source " lfvim
 endif
