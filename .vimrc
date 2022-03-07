@@ -109,8 +109,7 @@ set softtabstop=4
 " Folding Setting
 " REF: https://vim.fandom.com/wiki/Folding#Folding_by_expression
 "Set fold mode indent/syntax
-set foldmethod=indent
-"set foldmethod=syntax
+set foldmethod=indent "indent/syntax
 "stop fold when vim start
 set nofoldenable
 
@@ -120,6 +119,11 @@ if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
 
+" Load coc.nvim Settings
+let cocPath = '~/.vim/scripts.vim/coc.vim'
+if filereadable(expand(cocPath))
+    exe 'source' cocPath
+endif
 
 "### Recursive find customize config file <.cust.vim>
 function! CheckForCustomConfiguration()
@@ -135,7 +139,6 @@ function! CheckForCustomConfiguration()
         let file_path = fnamemodify(file_path, ':h')
     endwhile
 endfunction
-
 au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
 
 

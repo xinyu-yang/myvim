@@ -4,11 +4,17 @@
     // Add preview option to `completeopt`, default: `false`
     "suggest.enablePreview": true,
     // completion automatically select the first completed
-    "suggest.noselect": false,
+    "suggest.noselect": true,
     // "suggest.triggerAfterInsertEnter": true
     "suggest.minTriggerInputLength": 2,
     // Target to show hover information, default is floating window when possible.
     "coc.preferences.hoverTarget": "preview",
     // Auto close preview window on cursor move.,  default: `true`
-    "coc.preferences.previewAutoClose": false
+    "coc.preferences.previewAutoClose": true,
+
+
+    // ############ coc_pairs ############
+    "pairs.disableLanguages": [],
+    "pairs.enableCharacters": ["(", "[", "{", "'", "\""],
+    "pairs.enableBackspace": true
 }
