@@ -4,8 +4,7 @@
 " Common used plugins
 " 1. coc-pyright
 " 2. coc-pairs
-" 3. coc-
-
+let g:coc_global_extensions = ['coc-marketplace', 'coc-pairs']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
