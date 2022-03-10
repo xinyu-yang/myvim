@@ -173,3 +173,11 @@ let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 "let g:UltiSnipsJumpForwardTrigger="<c-j>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+
+
+" +------------------------------+
+" |#######<DrawIt> Settings######|
+" +------------------------------+
+" \di -> <leader>di
+" \ds -> <leader>ds

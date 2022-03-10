@@ -49,7 +49,7 @@ Plug 'majutsushi/tagbar'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'vim-scripts/DrawIt'
+Plug 'vim-scripts/DrawIt'
 Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'derekwyatt/vim-protodef'
