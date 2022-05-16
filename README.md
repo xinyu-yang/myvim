@@ -89,6 +89,8 @@ nerd-fonts supports patch fonts (e.g., Dejavu Sans Mono) yourself, that sounds i
 Take the python3 as an example:
 ```
 vim
-:cocInstall coc-pyright
+:CocInstall coc-pyright
 ```
+A more convenient approach is execute `:CocList` in vim and select `marketplace`.
+Then you can search and select the plugin to install.
 The details can be obtained in official site linked above.
