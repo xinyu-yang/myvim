@@ -1,1 +1,1 @@
-au! BufRead,BufNewFile *.tql		setfiletype tql
+au! BufRead,BufNewFile *.tql setfiletype tql

@@ -74,7 +74,6 @@ filetype plugin indent on
 
 "Set colorscheme dark | light
 set background=dark
-
 "colorscheme default
 colorscheme gruvbox
 "transparent background
@@ -91,7 +90,8 @@ set number
 "set cursorcolumn
 "Highlight search result
 set hlsearch
-
+"Show search number like [3/10]
+set shortmess-=S
 "show inputing cmd
 set showcmd
 "auto complete menu cmd
@@ -113,13 +113,13 @@ set foldmethod=indent "indent/syntax
 "stop fold when vim start
 set nofoldenable
 
-" Load Plugins' Settings
+"### Load Plugins' Settings
 let settingPath = '~/.vim/scripts.vim/setting.vim'
 if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
 
-" Load coc.nvim Settings
+"### Load coc.nvim Settings
 let cocPath = '~/.vim/scripts.vim/coc.vim'
 if filereadable(expand(cocPath))
     exe 'source' cocPath
@@ -149,9 +149,6 @@ if filereadable(expand(lfvim))
 endif
 " The shortcut opening lf
 nnoremap <leader>lf :LF<cr>
-
-" Last line is for proper wrapping of jemdoc lists, etc.
-autocmd Filetype jemdoc setlocal comments=:#,fb:-,fb:.,fb:--,fb:..,fb:\:
 
 " Highlight of jsonc (json with comments)
 autocmd FileType json syntax match Comment +\/\/.\+$+
