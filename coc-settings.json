@@ -16,5 +16,9 @@
     // ############ coc_pairs ############
     "pairs.disableLanguages": [],
     "pairs.enableCharacters": ["(", "[", "{", "'", "\""],
-    "pairs.enableBackspace": true
+    "pairs.enableBackspace": true,
+
+
+    // ########### pyright ##############
+    "pyright.disableCompletion": true
 }
