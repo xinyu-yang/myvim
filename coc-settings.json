@@ -20,5 +20,6 @@
 
 
     // ########### pyright ##############
-    "pyright.disableCompletion": true
+    "pyright.disableCompletion": true,
+    "pyright.disableDocumentation": true
 }
