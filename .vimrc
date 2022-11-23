@@ -98,7 +98,7 @@ set showcmd
 set wildmenu
 
 "Expand tab to space
-set expandtab
+"set expandtab
 "Set space number of tab when edit
 set tabstop=4
 "Set space number of tab when format
