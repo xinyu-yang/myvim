@@ -1,12 +1,16 @@
-"encoding: utf-8
 set encoding=utf-8
 "Define shortcut key, namely <Leader>
 let mapleader=";"
 
+
 command W w !sudo tee "%" > /dev/null
+
+
 " clipboard seriously slow down startup speed in X11 mode.
 " https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
 set clipboard=exclude:.*
+
+
 "Define shortcut key of system clipboard yank and paste (useless when upper
 "setting uncomment).
 "vnoremap <Leader>y "+y
@@ -15,12 +19,15 @@ set clipboard=exclude:.*
 vnoremap <Leader>y "xy
 nmap <Leader>p "xp
 
+
 "Define shortcut key close this split window
 nmap <Leader>q :q<CR>
 "Define shortcut save content of this window
 nmap <Leader>w :w<CR>
 "quit vim without do anything
 nmap <Leader>Q :q!<CR>
+
+
 "Sequence traverse child windows
 "nnoremap nw <C-W><C-W>
 "Jump to right window
@@ -31,12 +38,16 @@ nnoremap <Leader>hw <C-W>h
 nnoremap <Leader>kw <C-W>k
 "Jump to down window
 nnoremap <Leader>jw <C-W>j
+
+
 "Spell checking
 "set spell
 "inoremap <Leader>cs <C-X>s
 
-""Set python3 path(only for python3/dyn)
+
+"Set python3 path(only for python3/dyn)
 "set pythonthreedll=libpython3.8.so
+
 
 call plug#begin('~/.vim/plugged')
 "Appearance
@@ -61,16 +72,33 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'tamarin-prover/editors'
 call plug#end()
 
+
 "Make setting with immediate effect
 "Note: may trigger abnormal in tagbar+NERDTree
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
 
 syntax enable
 set number
 set autoindent
 set backspace=indent,eol,start
+"Always show status bar
+set laststatus=2
+"Show cursor position
+set ruler
+"Show line
+set number
+"Show search number like [3/10]
+set shortmess-=S
+"show inputing cmd
+set showcmd
+"auto complete menu cmd
+set wildmenu
+
+
 "Load relavant plugin according to detected file type
 filetype plugin indent on
+
 
 "Set colorscheme dark | light
 set background=dark
@@ -78,24 +106,12 @@ set background=dark
 colorscheme gruvbox
 "transparent background
 highlight Normal ctermbg=None
-
-"Always show status bar
-set laststatus=2
-"Show cursor position
-set ruler
-"Show line
-set number
 "Highlight current line/column
 "set cursorline
 "set cursorcolumn
 "Highlight search result
 set hlsearch
-"Show search number like [3/10]
-set shortmess-=S
-"show inputing cmd
-set showcmd
-"auto complete menu cmd
-set wildmenu
+
 
 "Expand tab to space
 "set expandtab
@@ -106,6 +122,7 @@ set shiftwidth=4
 "Continued space number that can be considered as tab
 set softtabstop=4
 
+
 " Folding Setting
 " REF: https://vim.fandom.com/wiki/Folding#Folding_by_expression
 "Set fold mode indent/syntax
@@ -113,17 +130,20 @@ set foldmethod=indent "indent/syntax
 "stop fold when vim start
 set nofoldenable
 
+
 "### Load Plugins' Settings
 let settingPath = '~/.vim/scripts.vim/setting.vim'
 if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
 
+
 "### Load coc.nvim Settings
 let cocPath = '~/.vim/scripts.vim/coc.vim'
 if filereadable(expand(cocPath))
     exe 'source' cocPath
 endif
+
 
 "### Recursive find customize config file <.cust.vim>
 function! CheckForCustomConfiguration()
@@ -139,7 +159,7 @@ function! CheckForCustomConfiguration()
         let file_path = fnamemodify(file_path, ':h')
     endwhile
 endfunction
-au BufNewFile,BufRead *.[ch] call CheckForCustomConfiguration()
+au BufNewFile,BufRead * call CheckForCustomConfiguration()
 
 
 "### Integrate lf
@@ -149,6 +169,7 @@ if filereadable(expand(lfvim))
 endif
 " The shortcut opening lf
 nnoremap <leader>lf :LF<cr>
+
 
 " Highlight of jsonc (json with comments)
 autocmd FileType json syntax match Comment +\/\/.\+$+
