@@ -1,4 +1,47 @@
-#/bin/bash
+#!/bin/bash
+
+REQ_VIM_V=8.2
+
+# Define some ultity functions
+# Compare version
+function version_le() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" == "$1"; }
+
+
+# Purge old vim
+rm_old_vim_root() {
+	echo "Removing old version vim"
+	sudo apt-get remove -y --purge vim vim-tiny vim-runtime gvim vim-common vim-gui-common vim-nox
+}
+
+# Install vim
+inst_vim_root() {
+	echo "Installing new version vim"
+
+	# Install prerequirements
+	sudo apt update
+	sudo apt install -y libncurses5-dev libgtk2.0-dev libatk1.0-dev \
+		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
+		ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
+
+	# Clone and install vim
+	git clone https://github.com/vim/vim.git /tmp/vim_src
+	cd /tmp/vim_src
+
+	./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp=yes \
+            --enable-perlinterp=yes \
+            --enable-luainterp=yes \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix=/usr/local \
+            --enable-python3interp=yes \
+            --with-python3-config-dir=$(python3-config --configdir)
+	make -j 4
+	sudo make install
+
+	rm -rf /tmp/vim_src
+}
 
 # Install ripgrep
 inst_rg_root(){
@@ -18,26 +61,26 @@ inst_ctags_root(){
         libyaml-dev \
         libxml2-dev
 
-    git clone https://github.com/universal-ctags/ctags.git
-    cd ctags
+    git clone https://github.com/universal-ctags/ctags.git /tmp/ctags_src
+    cd /tmp/ctags_src
     ./autogen.sh
     ./configure --prefix=/usr/local # defaults to /usr/local
-    make
+    make -j 4
     sudo make install # may require extra privileges depending on where to install
     cd -
-    rm -rf ctags
+    rm -rf /tmp/ctags_src
 }
 
 inst_ctags_noroot(){
     print_info "Installing ctags..."
-    git clone https://github.com/universal-ctags/ctags.git
-    cd ctags
+    git clone https://github.com/universal-ctags/ctags.git /tmp/ctags_src
+    cd /tmp/ctags_src
     ./autogen.sh
     ./configure --prefix=$(echo ~)/.local # defaults to /usr/local
-    make
-    sudo make install # may require extra privileges depending on where to install
+    make -j 4
+    make install # may require extra privileges depending on where to install
     cd -
-    rm -rf ctags
+    rm -rf /tmp/ctags_src
 }
 
 
@@ -45,21 +88,21 @@ inst_ctags_noroot(){
 inst_lf_root(){
     print_info "Installing lf..."
     url=$(curl -Ls -w %{url_effective} -o /dev/null https://github.com/gokcehan/lf/releases/latest)
-    wget ${url/tag/download}/lf-linux-amd64.tar.gz -O lf.tar.gz -nv > /dev/null
-    if $(file lf.tar.gz | grep gzip > /dev/null);
+    wget ${url/tag/download}/lf-linux-amd64.tar.gz -O /tmp/lf.tar.gz -nv > /dev/null
+    if $(file /tmp/lf.tar.gz | grep gzip > /dev/null);
     then
-        mkdir lfexport
-        tar zxf lf.tar.gz -C lfexport
+        mkdir /tmp/lfexport
+        tar zxf /tmp/lf.tar.gz -C /tmp/lfexport
         if [ $IS_SUDOER -eq 1 ];
         then
-            sudo mv ./lfexport/lf /usr/local/bin/
+            sudo mv /tmp/lfexport/lf /usr/local/bin/
         else
-            mv ./lfexport/lf ~/.local/bin/
+            mv /tmp/lfexport/lf ~/.local/bin/
         fi
         echo "lf installed."
     fi
-    rm lf.tar.gz
-    rm -rf ./lfexport
+    rm /tmp/lf.tar.gz
+    rm -rf /tmp/lfexport
 }
 
 inst_lf_noroot(){
@@ -67,15 +110,17 @@ inst_lf_noroot(){
 }
 
 # Install node.js
+# Don't install too new node version, v16.0 is ok.
 inst_node_root(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/lts | sudo bash -s -- --prefix=/usr/local
+    curl -sL install-node.vercel.app/v16.0 | sudo bash -s -- --prefix=/usr/local
 }
 
 inst_node_noroot(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/lts | bash -s -- --prefix=$(echo ~)/.local
+    curl -sL install-node.vercel.app/v16.0 | bash -s -- --prefix=$(echo ~)/.local
 }
+
 
 print_info(){
     echo "==========================================="
@@ -83,8 +128,22 @@ print_info(){
     echo "==========================================="
 }
 
+
+# Test whether the vim version meets requirements.
+VIM_V=$(vim --version | head -n 1 | cut -d " " -f 5)
+if (version_le $VIM_V $REQ_VIM_V); then
+	if (sudo -v > /dev/null); then
+		rm_old_vim_root
+		inst_vim_root
+	else
+		echo "Do not have required vim version"
+		exit 1
+	fi
+fi
+
+
 # Test whether this user has sudo priviledge
-if sudo -v > /dev/null;
+if (sudo -v > /dev/null);
 then
     print_info "Install as root"
     IS_SUDOER=1
@@ -119,3 +178,12 @@ do
         inst_${app}_${POSTFIX}
     fi
 done
+
+
+# Add vim config
+if [ ! -f $HOME/.vimrc ]; then
+	echo "Linking vim config..."
+	ln -s ~/.vim/.vimrc ~/.vimrc
+	echo "Installing plugins..."
+	vim -E -s -u "~/.vimrc" -c "PlugInstall" -c "qall"
+fi

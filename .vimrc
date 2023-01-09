@@ -102,8 +102,9 @@ filetype plugin indent on
 
 "Set colorscheme dark | light
 set background=dark
-"colorscheme default
-colorscheme gruvbox
+" Colorscheme default
+" Start in silent mode to enable initial auto startup
+silent! colorscheme gruvbox
 "transparent background
 highlight Normal ctermbg=None
 "Highlight current line/column
