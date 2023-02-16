@@ -2,14 +2,30 @@
 
 ![screenshot](https://i.loli.net/2021/11/22/wNt5PvpkadhErHq.png)
 
-## Remove old vim
+
+## Automatic Setup
+
+> Good Luck!
+
+```shell
+git clone [this repository] ~/.vim
+cd ~/.vim/
+
+./setup.sh
+```
+
+
+
+## Manual Setup
+
+### Remove old vim
 ```shell
 vim --version
 
 sudo apt-get remove --purge vim vim-tiny vim-runtime gvim vim-common vim-gui-common vim-nox
 ```
 
-## Install prerequisite libraries
+### Install prerequisite libraries
 * REF: [https://github.com/ycm-core/YouCompleteMe/wiki/Building-Vim-from-source](https://github.com/ycm-core/YouCompleteMe/wiki/Building-Vim-from-source)
 ```shell
 sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev \
@@ -26,7 +42,7 @@ ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
 > rm python3.x in /usr/local/lib/python3.x
 **But do not remove /usr/local/lib/libpython3.x.so before you make sure!**
 
-## Clone vim source code and compile
+### Clone vim source code and compile
 ```shell
 git clone https://github.com/vim/vim.git
 cd vim/
@@ -44,18 +60,9 @@ make
 make install
 ```
 
-## Clone this repository and link the config file
-```shell
-git clone [this repository] ~/.vim
-cd ~/.vim/
-./setup.sh
 
-ln -s ~/.vim/.vimrc ~/.vimrc
 
-:PlugInstall
-```
-
-## There are some operates should be performed before
+## There are some alternative operations
 Most of them have been coved in `setup.sh`. Currently, root priviledge is required to run this script.
 
 ### Coc.nvim requirments
