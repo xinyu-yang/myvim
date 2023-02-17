@@ -46,13 +46,13 @@ inst_vim_root() {
 # Install ripgrep
 inst_rg_root(){
     print_info "Installing ripgrep..."
-    sudo apt install ripgrep
+    sudo apt install -y ripgrep
 }
 
 # Install ctags
 inst_ctags_root(){
     print_info "Installing ctags..."
-    sudo apt install \
+    sudo apt install -y \
         gcc make \
         pkg-config autoconf automake \
         python3-docutils \
@@ -151,7 +151,7 @@ then
     if ! command -v curl > /dev/null;
     then
         print_info "Installing curl"
-        sudo apt install curl
+        sudo apt install -y curl
     fi
     array=(ctags lf rg node)
 else
