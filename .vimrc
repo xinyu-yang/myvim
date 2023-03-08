@@ -1,20 +1,22 @@
 set encoding=utf-8
+
 "Define shortcut key, namely <Leader>
 let mapleader=";"
 
-
+"Save privilidged files.
 command W w !sudo tee "%" > /dev/null
 
+"Open tag lists after Ctrl-]
+noremap <Leader>ts :ts<CR>
 
-" clipboard seriously slow down startup speed in X11 mode.
-" https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
+
+"Clipboard seriously slow down startup speed in X11 mode.
+"Ref: https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
 set clipboard=exclude:.*
-
-
 "Define shortcut key of system clipboard yank and paste (useless when upper
 "setting uncomment).
-"vnoremap <Leader>y "+y
-"nmap <Leader>p "+p
+""vnoremap <Leader>y "+y
+""nmap <Leader>p "+p
 " Define shortcut of yank and paste to an random selected register x.
 vnoremap <Leader>y "xy
 nmap <Leader>p "xp
