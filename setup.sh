@@ -13,7 +13,7 @@ print_error(){ echo -e "[ERROR]" "$1"; }
 
 # Purge old vim
 rm_old_vim_root() {
-	print_info "Removing old version vim"
+	print_info "Removing old version vim."
 	sudo apt-get remove -y --purge vim vim-tiny vim-runtime gvim vim-common vim-gui-common vim-nox
 }
 
@@ -32,6 +32,7 @@ inst_vim_root() {
 
 	# Clone and install vim
 	git clone https://github.com/vim/vim.git /tmp/vim_src
+	sleep 1
 	cd /tmp/vim_src
 
 	./configure --with-features=huge \
@@ -56,6 +57,7 @@ inst_vim_noroot() {
 
 	# Clone and install vim
 	git clone https://github.com/vim/vim.git /tmp/vim_src
+	sleep 1
 	cd /tmp/vim_src
 
 	./configure --with-features=huge \
@@ -99,6 +101,7 @@ inst_ctags_root(){
         libxml2-dev
 
     git clone https://github.com/universal-ctags/ctags.git /tmp/ctags_src
+	sleep 1
     cd /tmp/ctags_src
     ./autogen.sh
     ./configure --prefix=/usr/local # defaults to /usr/local
@@ -111,6 +114,7 @@ inst_ctags_root(){
 inst_ctags_noroot(){
     print_info "Installing ctags..."
     git clone https://github.com/universal-ctags/ctags.git /tmp/ctags_src
+	sleep 1
     cd /tmp/ctags_src
     ./autogen.sh
     ./configure --prefix=$(echo ~)/.local # defaults to /usr/local
@@ -155,12 +159,12 @@ inst_lf_noroot(){
 ###################################
 inst_node_root(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/v16.0 | sudo bash -s -- --prefix=/usr/local
+    curl -sL install-node.vercel.app/v16.0 | sudo bash -s -- -y --prefix=/usr/local
 }
 
 inst_node_noroot(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/v16.0 | bash -s -- --prefix=$(echo ~)/.local
+    curl -sL install-node.vercel.app/v16.0 | bash -s -- -y --prefix=$(echo ~)/.local
 }
 
 
@@ -170,6 +174,7 @@ if (version_le $VIM_V $REQ_VIM_V); then
 	if (sudo -v > /dev/null); then
 		rm_old_vim_root
 		inst_vim_root
+		print_info "vim installed successfully!"
 	else
 		print_error "Do not have required vim version!"
 		exit 1
@@ -180,7 +185,8 @@ fi
 # Test whether this user has sudo priviledge
 if (sudo -v > /dev/null);
 then
-    print_info "Install as root"
+    array=(ctags lf rg node)
+    print_info "Installing ${array[*]} as root"
     IS_SUDOER=1
     POSTFIX=root
     if ! command -v curl > /dev/null;
@@ -188,9 +194,9 @@ then
         print_info "Installing curl"
         sudo apt install -y curl
     fi
-    array=(ctags lf rg node)
 else
-    print_info "Install as non-root"
+    array=(lf node ctags)
+    print_info "Installing ${array[*]} as non-root"
     IS_SUDOER=0
     POSTFIX=noroot
     if ! command -v curl > /dev/null;
@@ -199,7 +205,6 @@ else
         print_error "Exiting..."
         exit 1
     fi
-    array=(lf node ctags)
 fi
 
 
