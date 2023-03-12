@@ -6,16 +6,23 @@ REQ_VIM_V=8.2
 # Compare version
 function version_le() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" == "$1"; }
 
+# print_* functions
+print_info(){ echo -e "[INFO]" "$1"; }
+print_warn(){ echo -e "[WARNING]" "$1"; }
+print_error(){ echo -e "[ERROR]" "$1"; }
 
 # Purge old vim
 rm_old_vim_root() {
-	echo "Removing old version vim"
+	print_info "Removing old version vim"
 	sudo apt-get remove -y --purge vim vim-tiny vim-runtime gvim vim-common vim-gui-common vim-nox
 }
 
+
+###################################
 # Install vim
+###################################
 inst_vim_root() {
-	echo "Installing new version vim"
+	print_info "Installing new version vim to /usr/local ..."
 
 	# Install prerequirements
 	sudo apt update
@@ -34,7 +41,7 @@ inst_vim_root() {
             --enable-luainterp=yes \
             --enable-gui=gtk2 \
             --enable-cscope \
-            --prefix=/usr/local \
+            --prefix=/usr/local/ \
             --enable-python3interp=yes \
             --with-python3-config-dir=$(python3-config --configdir)
 	make -j 4
@@ -43,13 +50,43 @@ inst_vim_root() {
 	rm -rf /tmp/vim_src
 }
 
+
+inst_vim_noroot() {
+	print_info "Installing new version vim to ~/.local/bin"
+
+	# Clone and install vim
+	git clone https://github.com/vim/vim.git /tmp/vim_src
+	cd /tmp/vim_src
+
+	./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp=yes \
+            --enable-perlinterp=yes \
+            --enable-luainterp=yes \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix=~/.local/ \
+            --enable-python3interp=yes \
+            --with-python3-config-dir=$(python3-config --configdir)
+	make -j 4
+	make install
+
+	rm -rf /tmp/vim_src
+}
+
+
+###################################
 # Install ripgrep
+###################################
 inst_rg_root(){
     print_info "Installing ripgrep..."
     sudo apt install -y ripgrep
 }
 
+
+###################################
 # Install ctags
+###################################
 inst_ctags_root(){
     print_info "Installing ctags..."
     sudo apt install -y \
@@ -84,7 +121,9 @@ inst_ctags_noroot(){
 }
 
 
+###################################
 # Install lf
+###################################
 inst_lf_root(){
     print_info "Installing lf..."
     url=$(curl -Ls -w %{url_effective} -o /dev/null https://github.com/gokcehan/lf/releases/latest)
@@ -99,7 +138,7 @@ inst_lf_root(){
         else
             mv /tmp/lfexport/lf ~/.local/bin/
         fi
-        echo "lf installed."
+        print_info "lf installed."
     fi
     rm /tmp/lf.tar.gz
     rm -rf /tmp/lfexport
@@ -109,8 +148,11 @@ inst_lf_noroot(){
     inst_lf_root
 }
 
+
+###################################
 # Install node.js
 # Don't install too new node version, v16.0 is ok.
+###################################
 inst_node_root(){
     print_info "Installing nodejs..."
     curl -sL install-node.vercel.app/v16.0 | sudo bash -s -- --prefix=/usr/local
@@ -122,13 +164,6 @@ inst_node_noroot(){
 }
 
 
-print_info(){
-    echo "==========================================="
-    echo ">>>>>>>>>>>>> $1"
-    echo "==========================================="
-}
-
-
 # Test whether the vim version meets requirements.
 VIM_V=$(vim --version | head -n 1 | cut -d " " -f 5)
 if (version_le $VIM_V $REQ_VIM_V); then
@@ -136,7 +171,7 @@ if (version_le $VIM_V $REQ_VIM_V); then
 		rm_old_vim_root
 		inst_vim_root
 	else
-		echo "Do not have required vim version"
+		print_error "Do not have required vim version!"
 		exit 1
 	fi
 fi
@@ -160,8 +195,8 @@ else
     POSTFIX=noroot
     if ! command -v curl > /dev/null;
     then
-        echo "No curl command!"
-        echo "Exiting..."
+        print_error "No curl command!"
+        print_error "Exiting..."
         exit 1
     fi
     array=(lf node ctags)
@@ -182,8 +217,8 @@ done
 
 # Add vim config
 if [ ! -f $HOME/.vimrc ]; then
-	echo "Linking vim config..."
+	print_info "Linking vim config..."
 	ln -s ~/.vim/.vimrc ~/.vimrc
-	echo "Installing plugins..."
+	print_info "Installing plugins..."
 	vim -E -s -u "~/.vimrc" -c "PlugInstall" -c "qall"
 fi
