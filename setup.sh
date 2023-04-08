@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REQ_VIM_V=8.2
+REQ_VIM_V=8.1.1719
 
 # Define some ultity functions
 # Compare version

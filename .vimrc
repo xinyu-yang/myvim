@@ -1,14 +1,11 @@
 set encoding=utf-8
+set shell=/bin/bash
 
 "Define shortcut key, namely <Leader>
 let mapleader=";"
 
 "Save privilidged files.
 command W w !sudo tee "%" > /dev/null
-
-"Open tag lists after Ctrl-]
-noremap <Leader>ts :ts<CR>
-
 
 "Clipboard seriously slow down startup speed in X11 mode.
 "Ref: https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
@@ -47,6 +44,10 @@ nnoremap <Leader>jw <C-W>j
 "inoremap <Leader>cs <C-X>s
 
 
+"Open tag lists after Ctrl-]
+noremap <Leader>ts :ts<CR>
+
+
 "Set python3 path(only for python3/dyn)
 "set pythonthreedll=libpython3.8.so
 
@@ -72,6 +73,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'suan/vim-instant-markdown'
 "Plug 'lilydjwg/fcitx.vim'
 "Plug 'tamarin-prover/editors'
+Plug 'nickeb96/fish.vim'
 call plug#end()
 
 
