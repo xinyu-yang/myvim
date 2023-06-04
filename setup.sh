@@ -176,8 +176,10 @@ if (version_le $VIM_V $REQ_VIM_V); then
 		inst_vim_root
 		print_info "vim installed successfully!"
 	else
-		print_error "Do not have required vim version!"
-		exit 1
+		inst_vim_noroot
+		#print_info "Do not have required vim version!"
+		#exit 1
+		print_info "vim installed successfully!"
 	fi
 fi
 
