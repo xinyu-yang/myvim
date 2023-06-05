@@ -1,6 +1,6 @@
 " ============================
 " Copy this file to project's root path and rename, e.g.,
-" $ cp ~/.vim/scripts.vim/cust.vim prj_path/.cust.vim
+" $ cp ~/.vim/prjconf.d/cust.vim prj_path/.cust.vim
 " ============================
 
 
