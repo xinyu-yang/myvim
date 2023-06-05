@@ -30,8 +30,17 @@ inst_vim_root() {
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
 		ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
 
-	# Clone and install vim
-	git clone https://github.com/vim/vim.git /tmp/vim_src
+	# Download and install vim
+	wget https://github.com/vim/vim/archive/refs/tags/v9.0.1600.tar.gz -O /tmp/vim9.0.tar.gz
+    if $(file /tmp/vim9.0.tar.gz | grep gzip > /dev/null);
+    then
+        mkdir /tmp/vim_src
+        tar zxf /tmp/vim9.0.tar.gz -C /tmp/vim_src
+	else
+		print_error "Vim download fails!"
+		exit 1
+    fi
+
 	sleep 1
 	cd /tmp/vim_src
 
@@ -52,11 +61,21 @@ inst_vim_root() {
 }
 
 
+# Unfortunatelly, it is almost impossible to install vim without root priviledge.
 inst_vim_noroot() {
 	print_info "Installing new version vim to ~/.local/bin"
 
-	# Clone and install vim
-	git clone https://github.com/vim/vim.git /tmp/vim_src
+	# Download and install vim
+	wget https://github.com/vim/vim/archive/refs/tags/v9.0.1600.tar.gz -O /tmp/vim9.0.tar.gz
+    if $(file /tmp/vim9.0.tar.gz | grep gzip > /dev/null);
+    then
+        mkdir /tmp/vim_src
+        tar zxf /tmp/vim9.0.tar.gz -C /tmp/vim_src
+	else
+		print_error "Vim download fails!"
+		exit 1
+    fi
+
 	sleep 1
 	cd /tmp/vim_src
 
