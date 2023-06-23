@@ -186,6 +186,10 @@ inst_node_root(){
 
 inst_node_noroot(){
     print_info "Installing nodejs..."
+	local prefix=$(echo ~)/.local
+	if [ ! -d $prefix ]; then
+		mkdir $prefix
+	fi
     curl -sL install-node.vercel.app/v16.0 | bash -s -- -y --prefix=$(echo ~)/.local
 }
 
