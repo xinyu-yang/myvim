@@ -63,6 +63,8 @@ inst_vim_root() {
 
 # Unfortunatelly, it is almost impossible to install vim without root priviledge.
 inst_vim_noroot() {
+	print_warn "Unfortunatelly, it is hard to install vim without root priviledge"
+	return
 	print_info "Installing new version vim to ~/.local/bin"
 
 	# Download and install vim
