@@ -52,13 +52,16 @@ noremap <Leader>ts :ts<CR>
 "set pythonthreedll=libpython3.8.so
 
 
+"***************** Plugins Begin ***************
 call plug#begin('~/.vim/plugged')
 "Appearance
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
+
 "Display markers
 "Plug 'kshenoy/vim-signature'
+
 Plug 'majutsushi/tagbar'
 Plug 'dyng/ctrlsf.vim'
 "Plug 'terryma/vim-multiple-cursors'
@@ -74,7 +77,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'lilydjwg/fcitx.vim'
 "Plug 'tamarin-prover/editors'
 Plug 'nickeb96/fish.vim'
+Plug 'derekwyatt/vim-fswitch'
 call plug#end()
+"***************** Plugins End ****************
 
 
 "Make setting with immediate effect
@@ -136,21 +141,21 @@ set foldmethod=indent "indent/syntax
 set nofoldenable
 
 
-"### Load Plugins' Settings
+"******************* Load Plugins' Settings ********************
 let settingPath = '~/.vim/scripts.vim/setting.vim'
 if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
 
 
-"### Load coc.nvim Settings
+"******************** Load coc.nvim Settings *******************
 let cocPath = '~/.vim/scripts.vim/coc.vim'
 if filereadable(expand(cocPath))
     exe 'source' cocPath
 endif
 
 
-"### Recursive find customize config file <.cust.vim>
+"****** Recursive find customize config file <.cust.vim> *******
 function! CheckForCustomConfiguration()
     "check for .vim in the directory containing the newly opened file
     let file_path = expand('%:p:h')
@@ -167,7 +172,7 @@ endfunction
 au BufNewFile,BufRead * call CheckForCustomConfiguration()
 
 
-"### Integrate lf
+"********************** Integrate lf ***************************
 let lfvim = '~/.vim/scripts.vim/lf.vim'
 if filereadable(expand(lfvim))
     exec "source " lfvim
