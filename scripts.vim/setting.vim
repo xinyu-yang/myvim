@@ -1,13 +1,14 @@
-"##############################
-"####<vim-airline> Setting#####
-"##############################
+"******************************
+"*** <vim-airline> Setting ****
+"******************************
 " Symbols
 " NOTE: ga (get ascii) to get unicode value.
 " NOTE: Input special symbol, Ctrl+v -> u[unicode].
-" Font patch, https://github.com/ryanoasis/nerd-fonts
+" NOTE: Font patch, https://github.com/ryanoasis/nerd-fonts
 " set powerline symbols (test ,)
 let g:airline_powerline_fonts = 1
-"*tabline* setting.
+
+" tabline setting
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -22,18 +23,22 @@ let g:airline#extensions#tabline#tabs_label = 'T'
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
-"*whitespace* setting.
-"https://stackoverflow.com/questions/32588604/vim-airline-what-is-trailing1
+
+" Whitespace setting
+" REF: https://stackoverflow.com/questions/32588604/vim-airline-what-is-trailing1
 set list          " Display unprintable characters f12 - switches
 set listchars=tab:•\ ,trail:•,extends:»,precedes:« " Unprintable chars mapping
 " Toggle above :set invlist
-" checks options.
+
+" Checks options
 let g:airline#extensions#whitespace#checks =
 \  [ 'indent', 'trailing', 'long', 'mixed-indent-file', 'conflicts' ]
-" To disable mixed-indent-file for go files use:
+
+" To disable mixed-indent-file for go files
 let g:airline#extensions#whitespace#skip_indent_check_ft =
 \  {'go': ['mixed-indent-file'],
 \    'c': [ 'indent', 'mixed-indent-file' ] }
+
 
 "Other extensions setting.
 let g:airline#extensions#tagbar#enabled = 1
@@ -44,10 +49,10 @@ let g:airline#extensions#ycm#warning_symbol = '☺:' "u263A
 
 
 
-"####################################
-"####<vim-indent-guides> Setting#####
-"####################################
-"###Set <visiable indent>
+"************************************
+"*** <vim-indent-guides> Setting ****
+"************************************
+"***Set <visiable indent>
 "Start with vim
 let g:indent_guides_enable_on_vim_startup=1
 "Visualize from second level
@@ -59,9 +64,9 @@ let g:indent_guides_guide_size=1
 
 
 
-"#########################
-"####<CtrlSF> Setting#####
-"#########################
+"*************************
+"*** <CtrlSF> Setting ****
+"*************************
 nmap     <Leader>ff <Plug>CtrlSFPrompt
 vmap     <Leader>ff <Plug>CtrlSFVwordPath
 vmap     <Leader>fF <Plug>CtrlSFVwordExec
@@ -74,9 +79,9 @@ inoremap <Leader>ft <Esc>:CtrlSFToggle<CR>
 
 
 
-"########################
-"####<Netrw> Setting#####
-"########################
+"************************
+"*** <Netrw> Setting ****
+"************************
 " Open browser window
 nnoremap <Leader>fl :Vexplore!<CR>
 " Set open mode
@@ -88,9 +93,10 @@ let g:netrw_altv = 1
 let g:netrw_winsize = -30
 
 
-"################################
-"####<Vim-signature> Setting#####
-"################################
+
+"********************************
+"*** <Vim-signature> Setting ****
+"********************************
 let g:SignatureMap = {
         \ 'Leader'             :  "m",
         \ 'PlaceNextMark'      :  "m,",
@@ -116,9 +122,10 @@ let g:SignatureMap = {
         \ }
 
 
-"#########################
-"####<tagbar> Setting#####
-"#########################
+
+"*************************
+"*** <tagbar> Setting ****
+"*************************
 "Set the position of child window in the left.
 let tagbar_left=1
 "Set shortcut key to display/hide tag list child window.
@@ -164,9 +171,9 @@ let g:tarbar_type_cpp = {
 
 
 
-"############################
-"####<Ultisnips> Setting#####
-"############################
+"****************************
+"*** <Ultisnips> Setting ****
+"****************************
 let g:UltiSnipsSnippetDirectories=["mysnippets"]
 let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
@@ -177,7 +184,14 @@ let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
 
 " +------------------------------+
-" |#######<DrawIt> Settings######|
+" |*******<DrawIt> Settings******|
 " +------------------------------+
 " \di -> <leader>di
 " \ds -> <leader>ds
+
+
+
+"***************************************
+"********** <fswitch> Settings *********
+"***************************************
+nmap <silent> <Leader>fs :FSHere<cr>
