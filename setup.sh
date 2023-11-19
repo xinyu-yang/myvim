@@ -31,15 +31,21 @@ inst_vim_root() {
 		ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
 
 	# Download and install vim
-	wget https://github.com/vim/vim/archive/refs/tags/v9.0.1600.tar.gz -O /tmp/vim9.0.tar.gz
-    if $(file /tmp/vim9.0.tar.gz | grep gzip > /dev/null);
-    then
-        mkdir /tmp/vim_src
-        tar zxf /tmp/vim9.0.tar.gz -C /tmp/vim_src
+	local VIM_TAR="vim9.0.tar.gz"
+	if [ -e /tmp/$VIM_TAR ]; then
+		print_info "vim tar file already exists"
 	else
-		print_error "Vim download fails!"
+		wget https://github.com/vim/vim/archive/refs/tags/v9.0.1600.tar.gz -O /tmp/$VIM_TAR
+	fi
+    	if $(file /tmp/$VIM_TAR | grep gzip > /dev/null);
+    	then
+        	mkdir /tmp/vim_src
+        	tar zxf /tmp/$VIM_TAR -C /tmp/vim_src --strip-components=1
+		print_info "source code uncompressed into /tmp/vim_src"
+	else
+		print_error "vim download fails!"
 		exit 1
-    fi
+    	fi
 
 	sleep 1
 	cd /tmp/vim_src
