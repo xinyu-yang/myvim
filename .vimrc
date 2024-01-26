@@ -58,6 +58,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'chrisbra/Colorizer'
 
 "Display markers
 "Plug 'kshenoy/vim-signature'
