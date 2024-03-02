@@ -58,7 +58,7 @@ inst_vim_root() {
             --enable-gui=gtk2 \
             --enable-cscope \
             --prefix=/usr/local/ \
-            --enable-python3interp=yes \
+            --enable-python3interp=dynamic \
             --with-python3-config-dir=$(python3-config --configdir)
 	make -j 4
 	sudo make install
@@ -95,7 +95,7 @@ inst_vim_noroot() {
             --enable-gui=gtk2 \
             --enable-cscope \
             --prefix=~/.local/ \
-            --enable-python3interp=yes \
+            --enable-python3interp=dynamic \
             --with-python3-config-dir=$(python3-config --configdir)
 	make -j 4
 	make install
