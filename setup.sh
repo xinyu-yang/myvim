@@ -1,6 +1,7 @@
 #!/bin/bash
 
 REQ_VIM_V=8.1.1719
+REQ_NODE_V=16.18.0
 
 # Define some ultity functions
 # Compare version
@@ -185,11 +186,11 @@ inst_lf_noroot(){
 
 ###################################
 # Install node.js
-# Don't install too new node version, v16.0 is ok.
+# Don't install too new node version, v16.18 is ok.
 ###################################
 inst_node_root(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/v16.0 | sudo bash -s -- -y --prefix=/usr/local
+    curl -sL install-node.vercel.app/v16.18.0 | sudo bash -s -- -y --prefix=/usr/local
 }
 
 inst_node_noroot(){
@@ -198,7 +199,7 @@ inst_node_noroot(){
 	if [ ! -d $prefix ]; then
 		mkdir $prefix
 	fi
-    curl -sL install-node.vercel.app/v16.0 | bash -s -- -y --prefix=$(echo ~)/.local
+    curl -sL install-node.vercel.app/v16.18.0 | bash -s -- -y --prefix=$(echo ~)/.local
 }
 
 
