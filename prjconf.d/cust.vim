@@ -7,8 +7,11 @@
 " ====== Tag settings ======
 " Customize tags for C language.
 "set tags+=/usr/include/c++/5/stdcpp.tags
-set tags+=~/.vim/tags/include_tags
-"set tags+=~/mb/metls/ctag_metls
+
+" The tag file of current project
+let tag_name = "prj.ctags"
+let local_tag = fnamemodify(expand('<sfile>:p'), ':h') . '/' . tag_name
+execute 'set tags+=' . local_tag
 
 
 " ====== Tab settings ======
