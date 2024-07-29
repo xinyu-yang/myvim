@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REQ_VIM_V=8.1.1719
+REQ_VIM_V=9.0.0438
 REQ_NODE_V=16.18.0
 
 # Define some ultity functions
