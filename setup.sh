@@ -190,7 +190,7 @@ inst_lf_noroot(){
 ###################################
 inst_node_root(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/v16.18.0 | sudo bash -s -- -y --prefix=/usr/local
+    curl -sL install-node.vercel.app/v16 | sudo bash -s -- -y --prefix=/usr/local
 }
 
 inst_node_noroot(){
@@ -199,7 +199,7 @@ inst_node_noroot(){
 	if [ ! -d $prefix ]; then
 		mkdir $prefix
 	fi
-    curl -sL install-node.vercel.app/v16.18.0 | bash -s -- -y --prefix=$(echo ~)/.local
+    curl -sL install-node.vercel.app/v16 | bash -s -- -y --prefix=$(echo ~)/.local
 }
 
 
