@@ -225,17 +225,17 @@ then
     array=(ctags lf rg node)
     print_info "Installing ${array[*]} as root"
     IS_SUDOER=1
-    POSTFIX=root
+    SUFFIX=root
     if ! command -v curl > /dev/null;
     then
         print_info "Installing curl"
         sudo apt install -y curl
     fi
 else
-    array=(lf node ctags)
+    array=(ctags lf node)
     print_info "Installing ${array[*]} as non-root"
     IS_SUDOER=0
-    POSTFIX=noroot
+    SUFFIX=noroot
     if ! command -v curl > /dev/null;
     then
         print_error "No curl command!"
@@ -252,7 +252,7 @@ do
     then
         print_info "${app} exists"
     else
-        inst_${app}_${POSTFIX}
+        inst_${app}_${SUFFIX}
     fi
 done
 
