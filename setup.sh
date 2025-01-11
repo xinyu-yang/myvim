@@ -1,7 +1,14 @@
 #!/bin/bash
 
+# Check whether the system is ubuntu
+if [ ! -f /etc/os-release ] || ! grep -q "Ubuntu" /etc/os-release; then
+	echo "This script only supports Ubuntu!"
+	exit 1
+fi
+
 REQ_VIM_V=9.0.0438
 REQ_NODE_V=16.18.0
+IS_SUDOER=0
 
 # Define some ultity functions
 # Compare version
@@ -12,16 +19,26 @@ print_info(){ echo -e "[INFO]" "$1"; }
 print_warn(){ echo -e "[WARNING]" "$1"; }
 print_error(){ echo -e "[ERROR]" "$1"; }
 
+echo "Install as root? (y/N)"
+read IS_ROOT
+if [ "$IS_ROOT" == "y" ] && sudo -v > /dev/null ; then
+	IS_SUDOER=1
+	print_info "Installing as root"
+else
+	print_info "Installing as non-root"
+fi
+
+
+###################################
+# old vim functions
+###################################
+
 # Purge old vim
 rm_old_vim_root() {
 	print_info "Removing old version vim."
 	sudo apt-get remove -y --purge vim vim-tiny vim-runtime gvim vim-common vim-gui-common vim-nox
 }
 
-
-###################################
-# Install vim
-###################################
 inst_vim_root() {
 	print_info "Installing new version vim to /usr/local ..."
 
@@ -105,6 +122,57 @@ inst_vim_noroot() {
 }
 
 
+install_vim(){
+	# Test whether the vim version meets requirements.
+	VIM_V=$(vim --version | head -n 1 | cut -d " " -f 5)
+	if (version_le $VIM_V $REQ_VIM_V); then
+		if [ "$IS_SUDOER" -eq 1 ]; then
+			rm_old_vim_root
+			inst_vim_root
+			print_info "vim installed successfully!"
+		else
+			inst_vim_noroot
+			#print_info "Do not have required vim version!"
+			#exit 1
+			print_info "vim installed successfully!"
+		fi
+	fi
+}
+
+
+###################################
+# neovim functions
+###################################
+
+inst_neovim_root(){
+	print_info "Installing neovim..."
+	sudo add-apt-repository -y ppa:neovim-ppa/unstable
+	sudo apt-get update
+	sudo apt-get install -y neovim
+}
+
+
+inst_neovim_noroot(){
+	print_info "Installing neovim..."
+	git clone https://github.com/neovim/neovim /tmp/neovim_src
+	cd /tmp/neovim_src
+	git checkout stable
+	rm -r build/
+	make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.local"
+	make install
+	print_info "neovim installed."
+}
+
+install_neovim(){
+	if ! command -v nvim > /dev/null; then
+		if [ "$IS_SUDOER" -eq 1 ]; then
+			inst_neovim_root
+		else
+			inst_neovim_noroot
+		fi
+	fi
+}
+
 ###################################
 # Install ripgrep
 ###################################
@@ -162,7 +230,7 @@ inst_ctags_noroot(){
 inst_lf_root(){
     print_info "Installing lf..."
     url=$(curl -Ls -w %{url_effective} -o /dev/null https://github.com/gokcehan/lf/releases/latest)
-    wget ${url/tag/download}/lf-linux-amd64.tar.gz -O /tmp/lf.tar.gz -nv > /dev/null
+    wget ${url/tag/download}/lf-linux-amd64.tar.gz -O /tmp/lf.tar.gz -q
     if $(file /tmp/lf.tar.gz | grep gzip > /dev/null);
     then
         mkdir /tmp/lfexport
@@ -186,11 +254,10 @@ inst_lf_noroot(){
 
 ###################################
 # Install node.js
-# Don't install too new node version, v16.18 is ok.
 ###################################
 inst_node_root(){
     print_info "Installing nodejs..."
-    curl -sL install-node.vercel.app/v16 | sudo bash -s -- -y --prefix=/usr/local
+    curl -sL install-node.vercel.app/v20 | sudo bash -s -- -y --prefix=/usr/local
 }
 
 inst_node_noroot(){
@@ -199,32 +266,21 @@ inst_node_noroot(){
 	if [ ! -d $prefix ]; then
 		mkdir $prefix
 	fi
-    curl -sL install-node.vercel.app/v16 | bash -s -- -y --prefix=$(echo ~)/.local
+    curl -sL install-node.vercel.app/v20 | bash -s -- -y --prefix=$(echo ~)/.local
 }
 
 
-# Test whether the vim version meets requirements.
-VIM_V=$(vim --version | head -n 1 | cut -d " " -f 5)
-if (version_le $VIM_V $REQ_VIM_V); then
-	if (sudo -v > /dev/null); then
-		rm_old_vim_root
-		inst_vim_root
-		print_info "vim installed successfully!"
-	else
-		inst_vim_noroot
-		#print_info "Do not have required vim version!"
-		#exit 1
-		print_info "vim installed successfully!"
-	fi
-fi
+###################################
+# Main
+###################################
 
+install_neovim
 
 # Test whether this user has sudo priviledge
-if (sudo -v > /dev/null);
+if (( $IS_SUDOER == 1 ));
 then
-    array=(ctags lf rg node)
+    array=(ctags lf rg)
     print_info "Installing ${array[*]} as root"
-    IS_SUDOER=1
     SUFFIX=root
     if ! command -v curl > /dev/null;
     then
@@ -232,9 +288,8 @@ then
         sudo apt install -y curl
     fi
 else
-    array=(ctags lf node)
+    array=(ctags lf)
     print_info "Installing ${array[*]} as non-root"
-    IS_SUDOER=0
     SUFFIX=noroot
     if ! command -v curl > /dev/null;
     then
@@ -258,9 +313,10 @@ done
 
 
 # Add vim config
-if [ ! -f $HOME/.vimrc ]; then
-	print_info "Linking vim config..."
-	ln -s ~/.vim/.vimrc ~/.vimrc
-	print_info "Installing plugins..."
-	vim -E -s -u "~/.vimrc" -c "PlugInstall" -c "qall"
+if [ ! -f $HOME/.local/bin/vim ]; then
+	print_info "Linking vim alias ..."
+	ln -s $(which nvim) "$HOME/.local/bin/vim"
 fi
+
+print_info "Installing plugins..."
+nvim -E -s -u "~/.config/nvim/init.vim" -c "PlugInstall" -c "qall"

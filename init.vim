@@ -7,9 +7,6 @@ let mapleader=";"
 "Save privilidged files.
 command W w !sudo tee "%" > /dev/null
 
-"Clipboard seriously slow down startup speed in X11 mode.
-"Ref: https://stackoverflow.com/questions/14635295/vim-takes-a-very-long-time-to-start-up
-set clipboard=exclude:.*
 "Define shortcut key of system clipboard yank and paste (useless when upper
 "setting uncomment).
 ""vnoremap <Leader>y "+y
@@ -79,6 +76,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'tamarin-prover/editors'
 Plug 'nickeb96/fish.vim'
 Plug 'derekwyatt/vim-fswitch'
+Plug 'github/copilot.vim'
+Plug 'ptzz/lf.vim'
+Plug 'voldikss/vim-floaterm'
 call plug#end()
 "***************** Plugins End ****************
 
@@ -141,16 +141,17 @@ set foldmethod=indent "indent/syntax
 "stop fold when vim start
 set nofoldenable
 
+let basePath = '~/.config/nvim/'
 
 "******************* Load Plugins' Settings ********************
-let settingPath = '~/.vim/scripts.vim/setting.vim'
+let settingPath = basePath . 'scripts.vim/setting.vim'
 if filereadable(expand(settingPath))
     exe 'source' settingPath
 endif
 
 
 "******************** Load coc.nvim Settings *******************
-let cocPath = '~/.vim/scripts.vim/coc.vim'
+let cocPath = basePath . 'scripts.vim/coc.vim'
 if filereadable(expand(cocPath))
     exe 'source' cocPath
 endif
@@ -174,12 +175,14 @@ au BufNewFile,BufRead * call CheckForCustomConfiguration()
 
 
 "********************** Integrate lf ***************************
-let lfvim = '~/.vim/scripts.vim/lf.vim'
+" This only work for vim
+let lfvim = basePath . 'scripts.vim/lf.vim'
 if filereadable(expand(lfvim))
     exec "source " lfvim
 endif
+let g:lf_map_keys = 0
 " The shortcut opening lf
-nnoremap <leader>lf :LF<cr>
+nnoremap <leader>lf :Lf<cr>
 
 
 " Highlight of jsonc (json with comments)
