@@ -35,15 +35,8 @@ nnoremap <Leader>kw <C-W>k
 "Jump to down window
 nnoremap <Leader>jw <C-W>j
 
-
-"Spell checking
-"set spell
-"inoremap <Leader>cs <C-X>s
-
-
 "Open tag lists after Ctrl-]
 noremap <Leader>ts :ts<CR>
-
 
 "Set python3 path(only for python3/dyn)
 "set pythonthreedll=libpython3.8.so
@@ -51,34 +44,35 @@ noremap <Leader>ts :ts<CR>
 
 "***************** Plugins Begin ***************
 call plug#begin('~/.vim/plugged')
-"Appearance
+" Vim Appearance
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'chrisbra/Colorizer'
 
-"Display markers
+" Display markers
 "Plug 'kshenoy/vim-signature'
-
 Plug 'majutsushi/tagbar'
+
+" Search
 Plug 'dyng/ctrlsf.vim'
 "Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdcommenter'
-Plug 'vim-scripts/DrawIt'
-Plug 'SirVer/ultisnips'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'derekwyatt/vim-protodef'
-"Plug 'gcmt/wildfire.vim'
-"Plug 'sjl/gundo.vim'
-"Plug 'Lokaltog/vim-easymotion'
-"Plug 'suan/vim-instant-markdown'
-"Plug 'lilydjwg/fcitx.vim'
-"Plug 'tamarin-prover/editors'
-Plug 'nickeb96/fish.vim'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'github/copilot.vim'
+
+" File Explorer
 Plug 'ptzz/lf.vim'
 Plug 'voldikss/vim-floaterm'
+
+" Fast operators
+Plug 'scrooloose/nerdcommenter'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'vim-scripts/DrawIt'
+"Plug 'sjl/gundo.vim'
+
+" Auto complete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 call plug#end()
 "***************** Plugins End ****************
 
@@ -184,6 +178,20 @@ let g:lf_map_keys = 0
 " The shortcut opening lf
 nnoremap <leader>lf :Lf<cr>
 
+
+"********************** copilot ***************************
+" map copilot accept to <C-J>
+imap <silent><script><expr> <C-J> copilot#Accept(" ")
+let g:copilot_no_tab_map = v:true
+
+let copilotChatPath = basePath . 'scripts.vim/copilot_chat.vim'
+if filereadable(expand(copilotChatPath))
+	exe 'source' copilotChatPath
+endif
+
+set completeopt=menuone,noinsert,popup
+
+noremap <Leader>co :CopilotChat<CR>
 
 " Highlight of jsonc (json with comments)
 autocmd FileType json syntax match Comment +\/\/.\+$+

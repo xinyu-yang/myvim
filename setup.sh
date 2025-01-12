@@ -160,6 +160,7 @@ inst_neovim_noroot(){
 	rm -r build/
 	make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.local"
 	make install
+	python3 -m pip install --user --upgrade pynvim
 	print_info "neovim installed."
 }
 
