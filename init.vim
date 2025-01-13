@@ -110,7 +110,7 @@ set background=dark
 " Start in silent mode to enable initial auto startup
 silent! colorscheme gruvbox
 "transparent background
-highlight Normal ctermbg=None
+highlight Normal guibg=None ctermbg=None
 "Highlight current line/column
 "set cursorline
 "set cursorcolumn
