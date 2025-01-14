@@ -158,8 +158,8 @@ inst_neovim_noroot(){
 	cd /tmp/neovim_src
 	git checkout stable
 	rm -r build/
-	make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.local"
-	make install
+	make CMAKE_BUILD_TYPE=RelWithDebInfo
+	make CMAKE_INSTALL_PREFIX="$HOME/.local" install
 	python3 -m pip install --user --upgrade pynvim
 	print_info "neovim installed."
 }
@@ -280,7 +280,7 @@ install_neovim
 # Test whether this user has sudo priviledge
 if (( $IS_SUDOER == 1 ));
 then
-    array=(ctags lf rg)
+    array=(ctags lf rg node)
     print_info "Installing ${array[*]} as root"
     SUFFIX=root
     if ! command -v curl > /dev/null;
@@ -289,7 +289,7 @@ then
         sudo apt install -y curl
     fi
 else
-    array=(ctags lf)
+    array=(ctags lf node)
     print_info "Installing ${array[*]} as non-root"
     SUFFIX=noroot
     if ! command -v curl > /dev/null;
