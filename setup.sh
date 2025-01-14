@@ -158,7 +158,7 @@ inst_neovim_noroot(){
 	cd /tmp/neovim_src
 	git checkout stable
 	rm -r build/
-	make CMAKE_BUILD_TYPE=RelWithDebInfo
+	make CMAKE_BUILD_TYPE=Release
 	make CMAKE_INSTALL_PREFIX="$HOME/.local" install
 	python3 -m pip install --user --upgrade pynvim
 	print_info "neovim installed."
