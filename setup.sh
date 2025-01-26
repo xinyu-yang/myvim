@@ -146,9 +146,12 @@ install_vim(){
 
 inst_neovim_root(){
 	print_info "Installing neovim..."
-	sudo add-apt-repository -y ppa:neovim-ppa/unstable
-	sudo apt-get update
-	sudo apt-get install -y neovim
+	git clone https://github.com/neovim/neovim /tmp/neovim_src
+	cd /tmp/neovim_src
+	git checkout stable
+	rm -r build/
+	make CMAKE_BUILD_TYPE=Release && cd build/ && cpack -G DEB && sudo dpkg -i nvim-*.deb
+	print_info "neovim installed."
 }
 
 
