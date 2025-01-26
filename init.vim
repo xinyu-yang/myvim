@@ -43,7 +43,7 @@ noremap <Leader>ts :ts<CR>
 
 
 "***************** Plugins Begin ***************
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 " Vim Appearance
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'

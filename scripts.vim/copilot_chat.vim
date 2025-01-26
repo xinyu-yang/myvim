@@ -6,7 +6,7 @@ require("CopilotChat").setup {
   -- default mappings
   mappings = {
     complete = {
-      insert = '<C-j>',
+      insert = '<Tab>',
     },
     close = {
       normal = 'q',
