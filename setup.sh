@@ -319,7 +319,7 @@ done
 # Add vim config
 if [ ! -f $HOME/.local/bin/vim ]; then
 	print_info "Linking vim alias ..."
-	ln -s $(which nvim) "$HOME/.local/bin/vim"
+	#ln -s $(which nvim) "$HOME/.local/bin/vim"
 fi
 
 print_info "Installing plugins..."
