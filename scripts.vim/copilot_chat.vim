@@ -3,6 +3,7 @@
 lua << EOF
 require("CopilotChat").setup {
   -- See Configuration section for options
+  model = 'claude-3.7-sonnet',
   -- default mappings
   mappings = {
     complete = {
