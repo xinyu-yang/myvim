@@ -46,7 +46,7 @@ inst_vim_root() {
 	sudo apt update
 	sudo apt install -y libncurses5-dev libgtk2.0-dev libatk1.0-dev \
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev python3-dev \
-		ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git
+		ruby-dev lua5.2 liblua5.2-dev libperl-dev liblzma-dev git cmake
 
 	# Download and install vim
 	local VIM_TAR="vim9.1.tar.gz"
@@ -146,6 +146,9 @@ install_vim(){
 
 inst_neovim_root(){
 	print_info "Installing neovim..."
+	sudo apt update
+	sudo apt install git cmake
+
 	git clone https://github.com/neovim/neovim /tmp/neovim_src
 	cd /tmp/neovim_src
 	git checkout stable
